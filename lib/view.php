@@ -8,7 +8,7 @@
 
 class View
 {
-    //public $template_view; // здесь можно указать общий вид по умолчанию.
+    //public $template_view;
 
     function generate($content_view, $template_view, $data = null)
     {
@@ -19,6 +19,6 @@ class View
         }
         */
 
-        include 'application/views/'.$template_view;
+        include 'views/'.$template_view;
     }
 }

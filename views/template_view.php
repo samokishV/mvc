@@ -21,7 +21,7 @@
                     <a class="nav-link" href="#">Contacts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="registration.php">Profile</a>
+                    <a class="nav-link" href="../index.php">Profile</a>
                 </li>
             </ul>
             <ul class="navbar-nav mr-right">
@@ -32,7 +32,7 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a href="cart.php">
+                    <a href="../index.php">
                         <button type="button" class="btn btn-primary">
                             <i class="fas fa-shopping-cart"></i> <span class="badge badge-light">4</span>
                         </button>
@@ -41,7 +41,7 @@
             </ul>
         </div>
     </nav>
-	<?php include 'application/views/'.$content_view; ?>
+	<?php include 'views/'.$content_view; ?>
     <footer class="page-footer bg-primary font-small pt-4 footer">
         <div class="container-fluid text-center text-md-left text-white">
             <div class="row">
