@@ -16,9 +16,11 @@ class Controller_Product extends Controller
     }
 
     function action_index()
-    {
-				$id = $_GET['id'];        
-				$data = $this->model->get_data($id);
+    {      
+		$route = new Route();
+        $route->start();
+        $params = (int) $route->getParams();
+        $data = $this->model->get_data($params);
         $this->view->generate('product_view.php', 'template_view.php', $data);
     }
 }

@@ -121,11 +121,11 @@
         <div class="col-sm-10 row space-between">
           <?php foreach($data as $key=>$i) {  ?>
           <div class="card" style="width: 18rem;">
-            <a href="/product/index/?id=<?php echo $key;?>">
+            <a href="/product/index/<?php echo $key;?>">
               <img class="card-img-top" src="/img/<?php echo $i['img'][0]; ?>" alt="<?php echo $i['name']; ?>">
             </a>
             <div class="card-body">              
-                <h5 class="card-title bold"><a href="/product/index/?id=<?php echo $key;?>"><?php echo $i['name']; ?></a></h5>
+                <h5 class="card-title bold"><a href="/product/index/<?php echo $key;?>"><?php echo $i['name']; ?></a></h5>
               <h5 class="card-title"><?php echo $i['price']; ?></h5>
               <h6 class="card-subtitle mb-2 text-muted">vendor code: <?php echo $i['code']; ?></h6>
               <h6 class="card-subtitle mb-2 text-muted">in stock: <?php echo $i['in_stock']; ?></h6>

@@ -4,7 +4,7 @@ class Model_Product
 {
 public static $products = array(
 
-		array(
+	array(
         'img'=>array('1.jpg', '2.jpg', '3.jpg', '1.jpg'),
         'name'=>'Ficus lyrata',
         'price'=>'450 UAH',
