@@ -18,7 +18,7 @@
                     <a class="nav-link" href="#">Delivery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contacts</a>
+                    <a class="nav-link" href="/contacts/">Contact Us</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../index.php">Profile</a>

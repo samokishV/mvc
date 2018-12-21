@@ -33,6 +33,10 @@ html, body {
   width:200px;
   margin: 20px;
 }
+.contacts-form{
+  width:400px;
+  margin: 20px;
+}
 .search-options-block, .cart-product {
   border-top: 1pt dashed lightgrey;
   border-bottom: 1pt dashed lightgrey;
