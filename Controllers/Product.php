@@ -5,17 +5,22 @@
  * Date: 14.12.18
  * Time: 10:21
  */
+namespace App\Controllers;
 
-class Controller_Product extends Controller
+use App\Lib\Controller as Controller;
+use App\Models\Product as ModelProduct;
+use App\Lib\View as View;
+use App\Lib\Route as Route;
+
+class Product extends Controller
 {
-
-    function __construct()
+    public function __construct()
     {
-        $this->model = new Model_Product();
+        $this->model = new ModelProduct();
         $this->view = new View();
     }
 
-    function action_index()
+    public function action_index()
     {      
 		$route = new Route();
         $route->start();

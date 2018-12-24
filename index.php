@@ -8,14 +8,14 @@
 
 ini_set('display_errors', 1);
 
-include("lib/init.php");
-include("lib/route.php");
+include("init.php");
 
-$route = new Route();
+$route = new App\Lib\Route();
 $route->start();
-$action = "action_".$route->getAction();
-$controller = "Controller_".$route->getController();
 
+$action = "action_".$route->getAction();
+
+$controller = "\App\Controllers\\".$route->getController();
 $controller1 = new $controller();
 $controller1->$action();
 

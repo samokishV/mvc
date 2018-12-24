@@ -5,10 +5,13 @@
  * Date: 14.12.18
  * Time: 10:21
  */
+namespace App\Controllers;
 
-class Controller_Contacts extends Controller
+use App\Lib\Controller as Controller;
+
+class Contacts extends Controller
 {
-    function action_index()
+    public function action_index()
     {
         if ($_POST) {
             $config = include('/home/NIX/phpstudent/www/app/Sender/config/config.php');
@@ -20,10 +23,8 @@ class Controller_Contacts extends Controller
 
             include "/home/NIX/phpstudent/www/app/Sender/Messenger.php";
             Messenger::send('ContactUs', $sendTo, $_POST);
-
         }
 
         $this->view->generate('contacts_view.php', 'template_view.php');
-
     }
 }
