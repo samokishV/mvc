@@ -1,0 +1,23 @@
+{
+    "name": "phpstudent/www",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Viktoria Samokish",
+            "email": "samokish.viktoria@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^1.24",
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\Controllers\\": "Controllers/",
+            "App\\Lib\\": "Lib/",
+            "App\\Models\\": "Models/",
+            "App\\Sender\\": "Sender/",
+            "App\\Sender\\Transport\\": "Sender/Transport/"
+        }
+    }
+}

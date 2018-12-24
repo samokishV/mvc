@@ -6,14 +6,20 @@
  * Time: 2:59 PM
  */
 
+//namespace App;
+
 ini_set('display_errors', 1);
 
-include("init.php");
+// include("init.php");
+require __DIR__."/vendor/autoload.php" ;
 
 $route = new App\Lib\Route();
 $route->start();
 
 $action = "action_".$route->getAction();
+$controller = new \App\Lib\Controller();
+
+//$mail = new App\Sender\Messenger();
 
 $controller = "\App\Controllers\\".$route->getController();
 $controller1 = new $controller();

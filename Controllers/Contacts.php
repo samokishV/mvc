@@ -8,6 +8,7 @@
 namespace App\Controllers;
 
 use App\Lib\Controller as Controller;
+use App\Sender\Messenger as Messenger;
 
 class Contacts extends Controller
 {
