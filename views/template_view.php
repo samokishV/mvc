@@ -38,6 +38,15 @@
                         </button>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <?php if(App\Lib\Authorization::isAuth()) { ?>
+                        <li> <a class="nav-link" href="#">Hello, <?php echo App\Lib\Authorization::getlogin(); ?>!</a> </li>
+                        <li> <a class="nav-link" href="/auth/quit/" onclick="return confirmDelete();">Log out</a> </li>
+                    <?php }
+                    else { ?>
+                        <li> <a class="nav-link" href="/registration/">Log in</a> </li>
+                    <?php } ?>
+                </li>
             </ul>
         </div>
     </nav>
@@ -103,6 +112,7 @@
             <a href="#" class="text-white"> Fitonia.com</a>
         </div>
     </footer>
+    <script src="/js/delete.js"> </script>
     <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
