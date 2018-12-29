@@ -10,7 +10,7 @@
         <div class="col-sm-1 flex-col">
           <?php for($i=0; $i<count($data['img']); $i++) { ?>
           <div class="row">
-            <img class="d-block h-100" src="/img/<?php echo $data['img'][$i];?>" alt="First slide">
+            <img class="d-block h-100" data-slide-to="<?php echo $i;?>" data-target="#carouselExampleFade" src="/img/<?php echo $data['img'][$i];?>" alt="First slide">
           </div>
           <?php } ?>
         </div>
