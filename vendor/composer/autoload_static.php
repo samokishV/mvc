@@ -19,6 +19,10 @@ class ComposerStaticInit823a19c3114489211a3c46b165595de7
         array (
             'Webmozart\\Assert\\' => 17,
         ),
+        'S' => 
+        array (
+            'Sender\\' => 7,
+        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
@@ -34,8 +38,6 @@ class ComposerStaticInit823a19c3114489211a3c46b165595de7
         ),
         'A' => 
         array (
-            'App\\Sender\\Transport\\' => 21,
-            'App\\Sender\\' => 11,
             'App\\Models\\' => 11,
             'App\\Lib\\' => 8,
             'App\\Controllers\\' => 16,
@@ -53,6 +55,10 @@ class ComposerStaticInit823a19c3114489211a3c46b165595de7
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
+        'Sender\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Sender',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -68,14 +74,6 @@ class ComposerStaticInit823a19c3114489211a3c46b165595de7
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
-        ),
-        'App\\Sender\\Transport\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/Sender/Transport',
-        ),
-        'App\\Sender\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/Sender',
         ),
         'App\\Models\\' => 
         array (

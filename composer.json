@@ -9,15 +9,16 @@
     ],
     "require": {
         "monolog/monolog": "^1.24",
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^7.5",
+        "swiftmailer/swiftmailer": "^6.0",
+        "viktoria/logger": "^1.0"
     },
     "autoload": {
         "psr-4": {
             "App\\Controllers\\": "Controllers/",
             "App\\Lib\\": "Lib/",
             "App\\Models\\": "Models/",
-            "App\\Sender\\": "Sender/",
-            "App\\Sender\\Transport\\": "Sender/Transport/"
+            "Sender\\": "Sender/"
         }
     }
 }
