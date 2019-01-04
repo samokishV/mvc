@@ -121,26 +121,28 @@
         <div class="col-sm-10 row space-between">
           <?php foreach($data as $key=>$i) {  ?>
           <div class="card" style="width: 18rem;">
-            <a href="/product/index/<?php echo $key;?>">
-              <img class="card-img-top" src="/img/<?php echo $i['img'][0]; ?>" alt="<?php echo $i['name']; ?>">
-            </a>
-            <div class="card-body">              
-                <h5 class="card-title bold"><a href="/product/index/<?php echo $key;?>"><?php echo $i['name']; ?></a></h5>
-              <h5 class="card-title"><?php echo $i['price']; ?></h5>
-              <h6 class="card-subtitle mb-2 text-muted">vendor code: <?php echo $i['code']; ?></h6>
-              <h6 class="card-subtitle mb-2 text-muted">in stock: <?php echo $i['in_stock']; ?></h6>
-              <div class="row">
-                <div class="col-sm">
-                  <div class="col-20">
-                    <input class="form-control" type="number" value="1" min="1" id="example-number-input">
-                  </div> 
-                </div>  	
-                <div class="col-sm">
-                    <button type="button" class="btn btn-dark w-100">Add to Cart</button>
+            <form method='post' action='/cart/add/<?php echo $key; ?>'>
+              <a href="/product/index/<?php echo $key;?>">
+                <img class="card-img-top" src="/img/<?php echo $i['img'][0]; ?>" alt="<?php echo $i['name']; ?>">
+              </a>
+              <div class="card-body">              
+                  <h5 class="card-title bold"><a href="/product/index/<?php echo $key;?>"><?php echo $i['name']; ?></a></h5>
+                <h5 class="card-title"><?php echo $i['price']; ?></h5>
+                <h6 class="card-subtitle mb-2 text-muted">vendor code: <?php echo $i['code']; ?></h6>
+                <h6 class="card-subtitle mb-2 text-muted">in stock: <?php echo $i['in_stock']; ?></h6>
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="col-20">
+                      <input class="form-control" name="<?php echo $key?>qt" type="number" value="1" min="1" id="example-number-input">
+                    </div> 
+                  </div>  	
+                  <div class="col-sm">
+                    <button type="submit" class="btn btn-dark w-100">Add to Cart</button>
                   </div>  
+                </div>
+                <p class="card-text wishlist-text"><i class="far fa-heart"></i>Add to wishlist</p>
               </div>
-              <p class="card-text wishlist-text"><i class="far fa-heart"></i>Add to wishlist</p>
-            </div>
+            </form>
           </div>
           <?php } ?>
           <nav aria-label="Page navigation example" class="w-100">

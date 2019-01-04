@@ -35,6 +35,7 @@
         </div>
         <div class="col-sm">
           <div class="card" style="width: 20rem;">
+            <form method='post' action='/cart/add/<?php $route = new App\Lib\Route; $route->start(); $id = $route->getParams(); echo $id; ?>'>
             <div class="card-body">
                 <h5 class="card-title bold"><?php echo $data['name'];?></h5>
               <h5 class="card-title"><?php echo $data['price'];?></h5>
@@ -56,13 +57,14 @@
               <div class="row">
                 <div class="col-sm">
                   <div class="col-20">
-                    <input class="form-control" type="number" value="1" min="1" id="example-number-input">
+                    <input class="form-control" name="<?php echo $id; ?>qt" type="number" value="1" min="1" id="example-number-input">
                   </div> 
                 </div>  	
                 <div class="col-sm">
-                    <button type="button" class="btn btn-dark w-100">Add to Cart</button>
+                    <button type="submit" class="btn btn-dark w-100">Add to Cart</button>
                   </div>  
               </div>
+              </form>  
               <p class="card-text wishlist-text"><i class="far fa-heart"></i>Add to wishlist</p>
               <div class="row">
                 <div class="flex-row col-sm-4">

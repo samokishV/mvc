@@ -32,9 +32,12 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a href="../index.php">
+                    <a href="/cart/">
                         <button type="button" class="btn btn-primary">
-                            <i class="fas fa-shopping-cart"></i> <span class="badge badge-light">4</span>
+                            <i class="fas fa-shopping-cart"></i> 
+                            <span class="badge badge-light">
+                                <?php $cart = new App\Models\Cart; echo $cart->countProducts(); ?>
+                            </span>
                         </button>
                     </a>
                 </li>
