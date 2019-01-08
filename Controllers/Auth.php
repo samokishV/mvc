@@ -18,6 +18,11 @@ class Auth extends Controller
         $this->view->generate('auth_view.php', 'template_view.php');
     }
 
+    public function action_auth() 
+    {
+
+    } 
+
     public function action_quit()
     {
         Authorization::logout();

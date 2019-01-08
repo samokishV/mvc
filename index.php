@@ -6,12 +6,20 @@
  * Time: 2:59 PM
  */
 
-//namespace App;
-
 ini_set('display_errors', 1);
 
-// include("init.php");
 require __DIR__."/vendor/autoload.php" ;
+
+$cfg = \ActiveRecord\Config::instance();
+$cfg->set_model_directory('ActiveRecord/models');
+$cfg->set_connections(
+  array(
+    'development' => 'mysql://samokish:qwerty@localhost/samokish_db'
+   // 'test' => 'mysql://username:password@localhost/test_database_name',
+   // 'production' => 'mysql://username:password@localhost/production_database_name'
+  )
+);
+$cfg->set_default_connection('development');
 
 $route = new App\Lib\Route();
 $route->start();
@@ -19,11 +27,10 @@ $route->start();
 $action = "action_".$route->getAction();
 $controller = new \App\Lib\Controller();
 
-//$mail = new App\Sender\Messenger();
-
 $controller = "\App\Controllers\\".$route->getController();
 $controller1 = new $controller();
 $controller1->$action();
+
 
 
 

@@ -10,8 +10,12 @@
     $config['encryption'] = 'tls';
 
     //sender
-    $config['name'] = 'Shop name';
+    $config['name'] = 'Fitonia';
     $config['email'] = 'samokish.viktoria@gmail.com';
+
+    //site info
+    $config['site_name'] = 'Fitonia';
+    $config['home_url'] = 'http://localhost/';
 
     return $config;
 

@@ -11,7 +11,8 @@
         "monolog/monolog": "^1.24",
         "phpunit/phpunit": "^7.5",
         "swiftmailer/swiftmailer": "^6.0",
-        "viktoria/logger": "^1.0"
+        "viktoria/logger": "^1.0",
+        "php-activerecord/php-activerecord": "^1.2"
     },
     "autoload": {
         "psr-4": {
