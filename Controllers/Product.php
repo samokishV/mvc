@@ -28,4 +28,11 @@ class Product extends Controller
         $data = $this->model->get_data($params);
         $this->view->generate('product_view.php', 'template_view.php', $data);
     }
+
+    public function action_add()
+    {
+
+        $data = $this->model->get_product($params);
+
+    }
 }

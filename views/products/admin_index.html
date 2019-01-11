@@ -1,0 +1,17 @@
+<div class="container main">
+<p><h3>Products <a href="/admin/add/"><button class="btn btn-sm btn-success">New Product</button></a> </h3></p>
+<table class="table table-striped" style="width: 400px">
+<?php foreach($data as $product) { ?>
+	<tr>
+		<td><b><?=$product->title?></b><?php // echo $product->created_at." ".$product->updated_at;?></td>
+		<td align="right">
+			<a href="/admin/edit/<?=$product->id?>"><button class="btn btn-sm btn-primary">edit</button></a>
+			<a href="/admin/delete/<?=$product->id?>" onclick="return confirmProductDelete();"><button class="btn btn-sm btn-warning">delete</button></a>
+		</td>
+	</tr>
+<?php } ?>
+</table>
+</div>
+
+
+

@@ -11,12 +11,16 @@ namespace App\Controllers;
 use App\Lib\Controller as Controller;
 use App\Lib\Authorization as Authorization;
 use App\Lib\Session as Session;
+use App\Models\User as User;
 
 class Auth extends Controller
 {
     public function action_index()
     {
-        $this->view->generate('auth_view.php', 'template_view.php');
+        if(User::isAdmin()) {
+            header("Location: /admin/");
+        } else
+            $this->view->generate('auth_view.php', 'template_view.php');
     }
 
     public function action_auth() 
