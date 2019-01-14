@@ -4,7 +4,7 @@
     <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.
 		</p>
     <p class="lead">
-      <a href="/stock/" class="btn btn-lg btn-primary">Go to shopping</a>
+      <a href="/products/" class="btn btn-lg btn-primary">Go to shopping</a>
     </p>
   </div>
 </div>

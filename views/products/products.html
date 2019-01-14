@@ -1,14 +1,29 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/main/">Home page</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Plants</li>
+        <?php
+        use App\Lib\Breadcrumps as Breadcrumps;
+        $breadcrumps = Breadcrumps::getBreadcrumps();
+        $levels =  Breadcrumps::getLevels();
+        for($i=0; $i<$levels; $i++) { 
+          if($i<$levels-1) { ?>
+            <li class="breadcrumb-item">
+              <a href="/<?=$breadcrumps[$i];?>/"><?=ucfirst($breadcrumps[$i]);?></a>
+            </li>
+          <?php } else { ?>
+            <li class="breadcrumb-item active"><?=ucfirst($breadcrumps[$i]);?></li>            
+          <?php } 
+        }?>
       </ol>
     </nav>
     <div class="container main">
       <div class="row">
         <div class="col-sm card" width="20rem;">
           <div class="card-body">
-            <h5 class="card-title bold">Krupnomery</h5>
+            <div class="list-group">
+              <a href='/plants/' class="list-group-item list-group-item-action">All plants</a>
+              <a href='/plants/decorative-leafy' class="list-group-item list-group-item-action">Decorative leafy</a>
+              <a href='/plants/krupnomery' class="list-group-item list-group-item-action">Krupnomery</a>
+            </div>
             <div class="search-options-block">
               <h5 class="card-title">Product type</h5>
               <div class="form-check">
@@ -119,21 +134,21 @@
           </div> 
         </div>
         <div class="col-sm-10 row space-between">
-          <?php foreach($data as $key=>$i) {  ?>
+          <?php foreach($data as $i) { ?>
           <div class="card" style="width: 18rem;">
-            <form method='post' action='/cart/add/<?php echo $key; ?>'>
-              <a href="/product/index/<?php echo $key;?>">
-                <img class="card-img-top" src="/img/<?php echo $i['img'][0]; ?>" alt="<?php echo $i['name']; ?>">
+            <form method='post' action="/cart/add/<?=$i->id;?>">
+              <a href="/products/show/<?=$i->id;?>">
+                <img class="card-img-top" src="/img/<?=$i->images[0]->src;?>" alt="<?=$i->title;?>">
               </a>
               <div class="card-body">              
-                  <h5 class="card-title bold"><a href="/product/index/<?php echo $key;?>"><?php echo $i['name']; ?></a></h5>
-                <h5 class="card-title"><?php echo $i['price']; ?></h5>
-                <h6 class="card-subtitle mb-2 text-muted">vendor code: <?php echo $i['code']; ?></h6>
-                <h6 class="card-subtitle mb-2 text-muted">in stock: <?php echo $i['in_stock']; ?></h6>
+                  <h5 class="card-title bold"><a href="/products/show/<?=$i->id;?>"><?=$i->title;?></a></h5>
+                <h5 class="card-title"><?=$i->price;?></h5>
+                <h6 class="card-subtitle mb-2 text-muted">vendor code: <?=$i->code;?></h6>
+                <h6 class="card-subtitle mb-2 text-muted">in stock: <?=$i->in_stock;?></h6>
                 <div class="row">
                   <div class="col-sm">
                     <div class="col-20">
-                      <input class="form-control" name="<?php echo $key?>qt" type="number" value="1" min="1" id="example-number-input">
+                      <input class="form-control" name="<?=$key?>qt" type="number" value="1" min="1" id="example-number-input">
                     </div> 
                   </div>  	
                   <div class="col-sm">
@@ -153,9 +168,10 @@
                   <span class="sr-only">Previous</span>
                 </a>
               </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <?php $pages = 1; $current = 1; ?>
+              <?php for($i=1; $i<=$pages; $i++) { ?>
+              <li class="page-item <?php if($i==$current) echo active;?>"><a class="page-link" href="/product/<?=$i;?>"><?=$i;?></a></li>
+              <?php } ?>
               <li class="page-item">
                 <a class="page-link" href="#" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>

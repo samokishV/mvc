@@ -1,25 +1,26 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/main/">Home page</a></li>
-        <li class="breadcrumb-item"><a href="/stock/">Plants</a></li>
-        <li class="breadcrumb-item active" aria-current="page"><?php echo $data['name']; ?></li>
+        <li class="breadcrumb-item"><a href="/<?=$data->type;?>/"><?=ucfirst($data->type);?></a></li>
+        <li class="breadcrumb-item"><a href="/<?=$data->type;?>/<?=str_replace(' ', '-', $data->subtype);?>/"><?=ucfirst($data->subtype);?></a></li>
+        <li class="breadcrumb-item active" aria-current="page"><?=$data->title;?></li>
       </ol> 
     </nav> 
     <div class="container main">
       <div class="row">
         <div class="col-sm-1 flex-col">
-          <?php for($i=0; $i<count($data['img']); $i++) { ?>
+          <?php foreach($data->images as $key=>$img) { ?>
           <div class="row">
-            <img class="d-block h-100" data-slide-to="<?php echo $i;?>" data-target="#carouselExampleFade" src="/img/<?php echo $data['img'][$i];?>" alt="First slide">
+            <img class="d-block h-100" data-slide-to="<?=$key;?>" data-target="#carouselExampleFade" src="/img/<?=$img->src;?>" alt="First slide">
           </div>
           <?php } ?>
         </div>
         <div class="col-sm-5">
           <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
-            <?php for($i=0; $i<count($data['img']); $i++) { ?>
-              <div class="carousel-item <?php if($i==0) { ?> active <?php } ?> ">
-                <img class="d-block w-100" src="/img/<?php echo $data['img'][$i];?>" alt="First slide">
+            <?php foreach($data->images as $key=>$img) { ?>
+              <div class="carousel-item <?php if($key==0) { ?> active <?php } ?> ">
+                <img class="d-block w-100" src="/img/<?=$img->src;?>" alt="First slide">
               </div>
             <?php } ?>
             </div>
@@ -35,12 +36,12 @@
         </div>
         <div class="col-sm">
           <div class="card" style="width: 20rem;">
-            <form method='post' action='/cart/add/<?php $route = new App\Lib\Route; $route->start(); $id = $route->getParams(); echo $id; ?>'>
+            <form method='post' action="/cart/add/<?=$data->id;?>">
             <div class="card-body">
-                <h5 class="card-title bold"><?php echo $data['name'];?></h5>
-              <h5 class="card-title"><?php echo $data['price'];?></h5>
-              <h6 class="card-subtitle mb-2 text-muted">vendor code: <?php echo $data['code'];?></h6>
-              <h6 class="card-subtitle mb-2 text-muted">in stock: <?php echo $data['in_stock'];?></h6>
+                <h5 class="card-title bold"><?=$data->title;?></h5>
+              <h5 class="card-title"><?=$data->price;?></h5>
+              <h6 class="card-subtitle mb-2 text-muted">vendor code: <?=$data->code;?></h6>
+              <h6 class="card-subtitle mb-2 text-muted">in stock: <?=$data->in_stock;?></h6>
               <h6 class="card-subtitle mb-2 text-muted">plant height:</h6>
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-primary active">
@@ -53,7 +54,7 @@
                   <input class="hidden" type="radio" name="options" id="option3" autocomplete="off">1m
                 </label>
               </div>
-              <p class="card-text">Ficus lyre is an evergreen tree. The leaves are large, leathery, with a waxy coating, wavy edges, widening towards the end, resembling a lyre or a violin.</p>
+              <p class="card-text"><?=$data->description;?></p>
               <div class="row">
                 <div class="col-sm">
                   <div class="col-20">

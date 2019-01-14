@@ -50,6 +50,20 @@ class Products
 		return $products;		
 	}
 
+    public function get_by_type()
+    {
+        $type = Route::getType();
+	    $products = \Products::find('all', array('conditions' => "type LIKE '".$type."'"));
+		return $products;	
+    }
+
+    public function get_by_subtype()
+    {
+        $subtype = Route::getSubtype();
+	    $products = \Products::find('all', array('conditions' => "subtype LIKE '".$subtype."'"));
+		return $products;	
+    }
+
 	public function get_product()
 	{	
 		$route = new Route();

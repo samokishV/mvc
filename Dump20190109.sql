@@ -25,11 +25,11 @@ DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `src` text NOT NULL,
-  `plants_id` int(11) DEFAULT NULL,
+  `products_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `plants_id` (`plants_id`),
-  CONSTRAINT `images_ibfk_1` FOREIGN KEY (`plants_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+  KEY `images_ibfk_1` (`products_id`),
+  CONSTRAINT `images_ibfk_1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `images` (
 
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT INTO `images` VALUES (1,'1.jpg',1),(2,'2.jpg',1),(3,'3.jpg',1),(4,'1.jpg',1),(5,'1.jpg',2),(6,'2.jpg',2),(7,'3.jpg',2),(8,'1.jpg',2),(9,'1.jpg',3),(10,'2.jpg',3),(11,'3.jpg',3),(12,'1.jpg',3),(13,'1.jpg',4),(14,'2.jpg',4),(15,'3.jpg',4),(16,'1.jpg',4),(17,'1.jpg',5),(18,'2.jpg',5),(19,'3.jpg',5),(20,'1.jpg',5),(21,'1.jpg',6),(22,'2.jpg',6),(23,'3.jpg',6),(24,'1.jpg',6);
+INSERT INTO `images` VALUES (1,'1.jpg',1),(2,'2.jpg',1),(3,'3.jpg',1),(4,'1.jpg',1),(5,'1.jpg',2),(6,'2.jpg',2),(7,'3.jpg',2),(8,'1.jpg',2),(9,'1.jpg',3),(10,'2.jpg',3),(11,'3.jpg',3),(12,'1.jpg',3),(13,'1.jpg',4),(14,'2.jpg',4),(15,'3.jpg',4),(16,'1.jpg',4),(17,'1.jpg',5),(18,'2.jpg',5),(19,'3.jpg',5),(20,'1.jpg',5),(21,'1.jpg',6),(22,'2.jpg',6),(23,'3.jpg',6),(24,'1.jpg',6),(25,'1.jpg',13),(26,'1.jpg',12),(27,'1.jpg',14);
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,10 +84,11 @@ CREATE TABLE `products` (
   `price` int(6) DEFAULT '0',
   `code` int(6) NOT NULL,
   `in_stock` int(6) DEFAULT '0',
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `created_at` text,
+  `updated_at` text,
+  `subtype` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +97,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Ficus lyrata','Ficus lyre is an evergreen tree. The leaves are large, leathery, with a waxy coating, wavy edges, widening towards the end, resembling a lyre or a violin.','plants',450,10370,10,'2019-01-09 13:18:04','2019-01-09 13:18:04'),(2,'Araucaria','Default description','plants',250,20568,8,'2019-01-09 13:18:04','2019-01-09 13:18:04'),(3,'Caryota mitis','Default description','plants',310,51423,18,'2019-01-09 13:18:04','2019-01-09 13:18:04'),(4,'Codiaeum KL Mini Curl','Default description','plants',658,65874,2,'2019-01-09 13:18:04','2019-01-09 13:18:04'),(5,'Dracaena Anita vertak','Default description','plants',125,99999,0,'2019-01-09 13:18:04','2019-01-09 13:18:04'),(6,'Dracaena Riki','Default description','plants',312,85469,10,'2019-01-09 13:18:04','2019-01-09 13:18:04');
+INSERT INTO `products` VALUES (1,'Ficus lyrata','Ficus lyre is an evergreen tree. The leaves are large, leathery, with a waxy coating, wavy edges, widening towards the end, resembling a lyre or a violin.','plants',450,10370,10,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(2,'Araucaria','Default description','plants',250,20568,8,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(3,'Caryota mitis','Default description','plants',310,51423,18,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(4,'Codiaeum KL Mini Curl','Default description','plants',658,65874,2,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(5,'Dracaena Anita vertak','Default description','plants',125,99999,0,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(6,'Dracaena Riki','Default description','plants',312,85469,10,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(12,'Cordyline','Cordilina is a tree or shrub. Thick and strong roots in the cut have a white color. The shape of the leaf plates depends on the type of plant and can be lanceolate, xiphoid or linear. As a rule, the flowers are painted white or red, less often in lilac.','plants',480,52698,20,'2019-01-14 10:27:13','2019-01-14 10:27:13','decorative leafy'),(13,'Asystasia','Default description','plants',234,14789,5,'2019-01-14 10:34:10','2019-01-14 10:34:10','decorative leafy'),(14,'Rivina','Default description','plants',333,25897,11,NULL,NULL,'decorative leafy');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +144,7 @@ CREATE TABLE `users` (
   `confirm` tinyint(1) DEFAULT '0',
   `hash` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +153,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (14,'samokish.viktoria@gmail.com','d8578edf8458ce06fbc5bb76a58c5ca4','Viktoria',1,'01be04f0218f709101a2c462a5b463e9');
+INSERT INTO `users` VALUES (14,'samokish.viktoria@gmail.com','d8578edf8458ce06fbc5bb76a58c5ca4','Viktoria',1,'01be04f0218f709101a2c462a5b463e9'),(15,'admin@mail.ru','d8578edf8458ce06fbc5bb76a58c5ca4','admin',0,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -165,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-09 13:35:16
+-- Dump completed on 2019-01-14 13:35:34
