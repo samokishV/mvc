@@ -12,16 +12,15 @@ class Products
     {
         if(isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['price'], $_POST['code'], $_POST['in_stock'])) {
         	$product = \Products::create(array('title' => $_POST['title'], 'description' => $_POST['description'], 'type' => $_POST['type'], 'price' => $_POST['price'], 'code' => $_POST['code'], 'in_stock' => $_POST['in_stock']));
-            if($product) return true;
+            if($product) return $product->id;
         }
-        else return false;
     }
 
-    public function edit()
+    public function edit($id)
     {
         if(isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['price'], $_POST['code'], $_POST['in_stock'])) {
 
-        	$product = $this->get_product();
+        	$product = $this->get_product($id);
 			if(isset($product)) {
 			    $product->title = $_POST['title'];
 			    $product->description = $_POST['description'];
@@ -38,10 +37,10 @@ class Products
         else return false;
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $product = $this->get_product();
-        if(isset($product)) $product->delete();
+        $product = $this->get_product($id);
+        if(isset($product)) $product->delete($id);
     }
 
 	public function get_list()
@@ -64,11 +63,8 @@ class Products
 		return $products;	
     }
 
-	public function get_product()
+	public function get_product($id)
 	{	
-		$route = new Route();
-        $route->start();
-        $id = (int) $route->getParams();
 	    $product = \Products::find_by_id($id);
 		return $product;		
 	}    

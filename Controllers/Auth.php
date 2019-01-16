@@ -25,7 +25,7 @@ class Auth extends Controller
 
     public function action_auth() 
     {
-        Authorization::login();
+        Authorization::login();     
     } 
 
     public function action_quit()

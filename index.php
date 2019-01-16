@@ -9,6 +9,7 @@
 ini_set('display_errors', 1);
 
 require __DIR__."/vendor/autoload.php" ;
+define('DIR', __DIR__);
 
 $cfg = \ActiveRecord\Config::instance();
 $cfg->set_model_directory('ActiveRecord/models');
@@ -25,11 +26,13 @@ $route = new App\Lib\Route();
 $route->start();
 
 $action = "action_".$route->getAction();
-$controller = new \App\Lib\Controller();
-
 $controller = "\App\Controllers\\".$route->getController();
 $controller1 = new $controller();
 $controller1->$action();
+
+
+
+
 
 
 

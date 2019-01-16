@@ -11,7 +11,7 @@ class Route
 {
     protected $controller = "Main";
     protected $action = "index";
-    protected $params;
+    protected static $params;
     protected $types = ['plants'];
     protected $subtypes = ['krupnomery', 'decorative leafy'];
     protected static $type;
@@ -28,9 +28,15 @@ class Route
         return $this->action;
     }
 
-    public function getParams()
+/*    public function getParams()
     {
        return $this->params;
+    }
+*/
+
+    public static function getParams()
+    {
+       return self::$params;
     }
 
     public static function getType()
@@ -97,7 +103,7 @@ class Route
         }
 
         if (!empty($routes[3])) {
-           $this->params = $routes[3];
+           self::$params = $routes[3];
         }
     }
 }

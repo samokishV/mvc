@@ -10,6 +10,7 @@ namespace App\Controllers;
 
 use App\Lib\Controller as Controller;
 use App\Lib\View as View;
+use App\Lib\Route as Route;
 use App\Models\Products as Products;
 use App\Models\User as User;
 
@@ -33,8 +34,15 @@ class Admin extends Controller
     public function action_add()
     {
         if(User::isAdmin()) {
-            $add = $this->model->add();
-            if ($add) header("Location: /admin/");
+            $id = $this->model->add();
+
+            if(isset($_POST['images'])) {
+                $images = $_POST['images'];
+                $newImg = new \App\Models\Images();
+                $newImg->add($images, $id);
+            }
+
+            if (isset($id)) header("Location: /admin/");
             $this->view->generate('products/admin_add.html', 'template_view.php');
         } else
             header("Location: /auth/");
@@ -43,9 +51,17 @@ class Admin extends Controller
     public function action_edit()
     {
         if(User::isAdmin()) {
-            $add = $this->model->edit();
-            if ($add) header("Location: /admin/");
-            $data = $this->model->get_product();
+            $id = Route::getParams();
+
+            if(isset($_POST['images'])) {
+                $images = $_POST['images'];
+                $newImg = new \App\Models\Images();
+                $newImg->add($images, $id);
+            }
+
+            $edit = $this->model->edit($id);
+            //if ($edit) header("Location: /admin/");
+            $data = $this->model->get_product($id);
             $this->view->generate('products/admin_edit.html', 'template_view.php', $data);
         } else
             header("Location: /auth/");
@@ -54,7 +70,8 @@ class Admin extends Controller
     public function action_delete()
     {
         if(User::isAdmin()) {
-            $this->model->delete();
+            $id = Route::getParams();
+            $this->model->delete($id);
             header("Location: /admin/");
         }
         else
