@@ -10,6 +10,20 @@ class Images
 		return $image;
     }
 
+    public function deleteAll($id)
+    {
+        $images = \Images::find('all', array('conditions' => "products_id LIKE '".$id."'"));
+
+        foreach ($images as $image) {
+            //drop image from folder
+            $file = DIR.'/img/'.$image->src;
+            if(file_exists($file)) unlink($file);
+
+            //drop image from DB
+            if(isset($image)) $image->delete();
+        }
+    }
+
     public function delete($id)
     {
         $image = $this->get_image($id);

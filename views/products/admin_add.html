@@ -1,6 +1,14 @@
 <div class="container main">
   <p><h3>Add product</h3></p>
   <form method="post" action="" class="product-form needs-validation" novalidate>
+    <div>
+      <p id="list"> </p>
+      <div style="clear:both;">&nbsp;</div>
+    </div>
+    <div class="form-group">
+      <!-- <label for="files"><i class="fas fa-plus-circle" style="font-size:25pt; color:darkGreen;"></i></label>  -->
+      <input type="file" id="files"  multiple accept="image/*" name="photo">
+    </div>
 	  <div class="form-group">
 		  <label for="title">Title</label>
 		  <input type="text" id="title" name="title" value="" class="form-control" required>
