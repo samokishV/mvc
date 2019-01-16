@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e756b3ea17b0f5506e9a2c5f54eddbca",
+    "content-hash": "7725160c9fd606afbe7afe4df90cb89e",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -1731,6 +1731,39 @@
                 }
             ],
             "time": "2019-01-02T10:50:11+00:00"
+        },
+        {
+            "name": "viktoria/sender",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/samokishV/Sender.git",
+                "reference": "2b22a438ac23f43059023db9cf5332690abee3f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/samokishV/Sender/zipball/2b22a438ac23f43059023db9cf5332690abee3f8",
+                "reference": "2b22a438ac23f43059023db9cf5332690abee3f8",
+                "shasum": ""
+            },
+            "require": {
+                "swiftmailer/swiftmailer": "^6.0"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Sender\\Transport\\": "Transport/",
+                    "Sender\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Viktoria Samokish",
+                    "email": "samokish.viktoria@gmail.com"
+                }
+            ],
+            "time": "2019-01-16T16:35:02+00:00"
         },
         {
             "name": "webmozart/assert",
