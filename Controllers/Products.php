@@ -8,8 +8,8 @@
 namespace App\Controllers;
 
 use App\Lib\Controller as Controller;
-//use App\Models\Products as Products;
 use App\Lib\View as View;
+use App\Lib\Route as Route;
 
 class Products extends Controller
 {
@@ -39,7 +39,8 @@ class Products extends Controller
 
     public function action_show()
     {
-        $data = $this->model->get_product();
+        $id = Route::getParams();
+        $data = $this->model->get_product($id);
         $this->view->generate('products/product.html', 'template_view.php', $data);
     }
 }

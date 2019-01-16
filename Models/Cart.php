@@ -18,14 +18,19 @@ class Cart
 
     public function getProducts()
     {
-        $products = include 'db.php';
+        //$products = include 'db.php';
 
         foreach($this->products as $index=>$qt) {
+            $product = \Products::find_by_id($index);
+            $this->cart[$index] = $product;
+
+            /*
             $this->cart[$index] = $products[$index];
             $this->cart[$index]['qt'] = $qt;
             $price = (int) $products[$index]['price'];
             $total = $qt*$price;
             $this->cart[$index]['total'] = $total;
+            */
         }
 
         return $this->cart;
