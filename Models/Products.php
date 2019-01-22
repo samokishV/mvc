@@ -26,8 +26,8 @@ class Products
 			    $product->description = $_POST['description'];
 			    $product->type = $_POST['type'];
 			    $product->price = $_POST['price'];
-			    $product->code = $_POST['in_stock'];
-			    $product->in_stock = $_POST['code'];
+			    $product->code = $_POST['code'];
+			    $product->in_stock = $_POST['in_stock'];
 			    $product->save();
 			    return true;
 				
@@ -40,7 +40,10 @@ class Products
     public function delete($id)
     {
         $product = $this->get_product($id);
-        if(isset($product)) $product->delete($id);
+        if(isset($product)) {
+			$result = $product->delete($id);
+			return true;
+		}
     }
 
 	public function get_list()
@@ -67,5 +70,21 @@ class Products
 	{	
 	    $product = \Products::find_by_id($id);
 		return $product;		
+	}
+
+	public function decrease($id, $qt)
+	{
+		$product = $this->get_product($id);;
+		$number = $product->in_stock - $qt;
+		$product->in_stock = $number;
+		$product->save();
+	}
+
+	public function increase($id, $qt) 
+	{
+		$product = $this->get_product($id);;
+		$number = $product->in_stock + $qt;
+		$product->in_stock = $number;
+		$product->save();
 	}    
 }

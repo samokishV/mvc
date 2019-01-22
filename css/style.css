@@ -61,13 +61,21 @@ html, body {
 .product-form {
   width:600px;
 }
-.search-options-block, .cart-product {
+.search-options-block {
+  padding-bottom:20px; 
+}
+.cart-product {
   border-top: 1pt dashed lightgrey;
-  border-bottom: 1pt dashed lightgrey;
+  border-bottom: 1pt dashed lightgrey; 
   padding-bottom:20px;  
 }
 .cart-big-txt {
   font-size:18pt;
+}
+.delete-btn {
+	border:none; 
+	background-color:white; 
+	cursor: pointer;
 }
 .wishlist-text {
   color: lightgrey;

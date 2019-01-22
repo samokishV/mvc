@@ -36,49 +36,31 @@
         </div>
         <div class="col-sm">
           <div class="card" style="width: 20rem;">
-            <form method='post' action="/cart/add/<?=$data->id;?>">
+            <form method='post' action="" class="products">
             <div class="card-body">
                 <h5 class="card-title bold"><?=$data->title;?></h5>
               <h5 class="card-title"><?=$data->price;?></h5>
               <h6 class="card-subtitle mb-2 text-muted">vendor code: <?=$data->code;?></h6>
               <h6 class="card-subtitle mb-2 text-muted">in stock: <?=$data->in_stock;?></h6>
-              <h6 class="card-subtitle mb-2 text-muted">plant height:</h6>
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                  <input class="hidden" type="radio" name="options" id="option1" autocomplete="off" checked>50cm
-                </label>
-                <label class="btn btn-primary">
-                  <input class="hidden" type="radio" name="options" id="option2" autocomplete="off">80cm
-                </label>
-                <label class="btn btn-primary">
-                  <input class="hidden" type="radio" name="options" id="option3" autocomplete="off">1m
-                </label>
-              </div>
               <p class="card-text"><?=$data->description;?></p>
+							<?php if($data->in_stock > 0) { ?>
               <div class="row">
                 <div class="col-sm">
                   <div class="col-20">
-                    <input class="form-control" name="<?php echo $data->id; ?>qt" type="number" value="1" min="1" id="example-number-input">
+                    <input class="form-control" name="qt" type="number" value="1" min="1" max="<?=$data->in_stock;?>" id="example-number-input">
+										<input type="hidden" name="id" value="<?=$data->id;?>"> 
                   </div> 
                 </div>  	
                 <div class="col-sm">
                     <button type="submit" class="btn btn-dark w-100">Add to Cart</button>
-                  </div>  
+                </div>  
               </div>
+							<?php } else { ?>
+								<div class="alert alert-danger" role="alert">
+									goods ended
+								</div>
+							<?php } ?>
               </form>  
-              <p class="card-text wishlist-text"><i class="far fa-heart"></i>Add to wishlist</p>
-              <div class="row">
-                <div class="flex-row col-sm-4">
-                  <div>
-                    <i class="fab fa-facebook-square"></i>
-                  </div>
-                  <div>
-                    <i class="fab fa-instagram"></i>
-                  </div>
-                  <div>
-                    <i class="fab fa-google-plus-square"></i>
-                  </div>
-                </div>
                 <div class="col-sm-8">
                 
                 </div>

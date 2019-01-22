@@ -31,19 +31,42 @@ class Cart extends Controller
 
     public function action_add() 
     {
-        $id = (int) $this->route->getParams();
-        $qt = (int) $_POST[$id.'qt'];
-        $this->model->addProduct($id, $qt);
-        // echo "<pre>"; var_dump($this->model->getProducts());
-        header('Location:'.$_SERVER['HTTP_REFERER']);
+		if(isset($_POST['id']) && isset($_POST['qt'])) {
+		    $id = $_POST['id'];
+		    $qt = $_POST['qt'];
+		    $result = $this->model->addProduct($id, $qt);
+			if($result) {
+				$product = new \App\Models\Products();
+				$product->decrease($id, $qt);
+				echo true;
+			}
+			else echo false; 
+		}
     }
 
     public function action_delete() 
     {
-        $id = (int) $this->route->getParams();
-        $this->model->deleteProduct($id);
-        header('Location:'.$_SERVER['HTTP_REFERER']);
+		$id = $_POST['id'];
+		$qt = $_POST['qt'];	
+        $result = $this->model->deleteProduct($id);
+		if($result) {
+			$product = new \App\Models\Products();
+			$product->increase($id, $qt);
+		}
     }
+
+	public function action_edit()
+	{
+		if(isset($_POST['id']) && isset($_POST['qt']) && isset($_POST['action'])) {
+			$id = $_POST['id'];
+			$qt = $_POST['qt'];	
+			$action = $_POST['action'];
+			$result = $this->model->editProduct($id, $qt);
+			$product = new \App\Models\Products();
+			if($action == 'increase') $product->increase($id, 1);
+			if($action == 'decrease') $product->decrease($id, 1);
+		}
+	}
 }
 
 

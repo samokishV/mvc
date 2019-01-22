@@ -3,79 +3,57 @@
 namespace App\Models;
 
 use App\Lib\Session as Session;
+use App\Lib\Cookie as Cookie;
 
 class Cart
 {
     private $products;
     private $cart;
 
-    function __construct()
+    public function __construct()
     {
-        session_write_close();        
-        session_start();
-        $this->products = Session::get('plants') == null ? array(): unserialize(Session::get('plants'));
+		$this->products = Cookie::get('products') == null ? array() : Cookie::get('products');
     }
 
     public function getProducts()
     {
-        //$products = include 'db.php';
-
         foreach($this->products as $index=>$qt) {
             $product = \Products::find_by_id($index);
-            $this->cart[$index] = $product;
-
-            /*
-            $this->cart[$index] = $products[$index];
-            $this->cart[$index]['qt'] = $qt;
-            $price = (int) $products[$index]['price'];
+            $price = $product->price;
             $total = $qt*$price;
-            $this->cart[$index]['total'] = $total;
-            */
+            $this->cart[$index] = array($product, 'qt'=>$qt, 'total'=>$total);
         }
-
         return $this->cart;
     }
 
     public function countProducts() 
     {
-        return count($this->products);
+		return count($this->products);
     }
 
     public function addProduct($id, $qt)
     {
         $id = (int)$id;
 
-        if (!in_array($id, $this->products)) {
-          $this->products[$id]=$qt;
-        }
-
-        session_write_close();
-        session_start();
-        Session::set('plants', serialize($this->products));
+        if (!isset($this->products[$id])) {
+			Cookie::set("products[$id]", $qt);
+			$this->products = Cookie::get('products');
+			return true;
+        } else {
+			return false;
+		}
     }
 
     public function deleteProduct($id)
     {
-        $id = (int)$id;
-
-        if (array_key_exists($id, $this->products)){
-            unset($this->products[$id]);
-        }
-
-        session_write_close();
-        session_start();
-        Session::set('plants', serialize($this->products));
+	    $id = (int)$id;
+	    $result = Cookie::delete("products[$id]", $this->products[$id]);
+		$this->products = Cookie::get('products');
+		return $result;
     }
 
-    public function clear()
-    {
-        session_write_close();
-        session_start();
-        Session::delete('plants');
-    }
-
-    public function isEmpty()
-    {
-        return !$this->products;
-    }
+	public function editProduct($id, $qt)
+	{
+		Cookie::set("products[$id]", $qt);
+	}
 }

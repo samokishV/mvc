@@ -43,4 +43,5 @@ class Products extends Controller
         $data = $this->model->get_product($id);
         $this->view->generate('products/product.html', 'template_view.php', $data);
     }
+
 }

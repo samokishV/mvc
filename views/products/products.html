@@ -18,108 +18,18 @@
     <div class="container main">
       <div class="row">
         <div class="col-sm card" width="20rem;">
+					<div class="list-group">
+					  <a href='/plants/' class="list-group-item list-group-item-action">All plants</a>
+					  <a href='/plants/decorative-leafy' class="list-group-item list-group-item-action">Decorative leafy</a>
+					  <a href='/plants/krupnomery' class="list-group-item list-group-item-action">Krupnomery</a>
+					</div>
           <div class="card-body">
-            <div class="list-group">
-              <a href='/plants/' class="list-group-item list-group-item-action">All plants</a>
-              <a href='/plants/decorative-leafy' class="list-group-item list-group-item-action">Decorative leafy</a>
-              <a href='/plants/krupnomery' class="list-group-item list-group-item-action">Krupnomery</a>
-            </div>
             <div class="search-options-block">
               <h5 class="card-title">Product type</h5>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                 <label class="form-check-label text-muted" for="defaultCheck1">
                   Option 1 <span class="badge badge-primary">4</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 2 <span class="badge badge-primary">14</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 3 <span class="badge badge-primary">7</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 4 <span class="badge badge-primary">8</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 5 <span class="badge badge-primary">10</span>
-                </label>
-              </div>
-            </div>
-            <div class="search-options-block">
-              <h5 class="card-title">Search option 2</h5>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 1 <span class="badge badge-primary">4</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 2 <span class="badge badge-primary">14</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 3 <span class="badge badge-primary">7</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 4 <span class="badge badge-primary">8</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 5 <span class="badge badge-primary">10</span>
-                </label>
-              </div>
-            </div>
-            <div class="search-options-block">
-              <h5 class="card-title">Search option 3</h5>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 1 <span class="badge badge-primary">4</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 2 <span class="badge badge-primary">14</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 3 <span class="badge badge-primary">7</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 4 <span class="badge badge-primary">8</span>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 5 <span class="badge badge-primary">10</span>
                 </label>
               </div>
             </div>
@@ -133,10 +43,22 @@
             </form>
           </div> 
         </div>
+				<div id="myModal" class="modal" tabindex="-1" role="dialog">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Product successfully add to cart</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								  <span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
         <div class="col-sm-10 row space-between">
           <?php foreach($data as $i) { ?>
           <div class="card" style="width: 18rem;">
-            <form method='post' action="/cart/add/<?=$i->id;?>">
+            <form method='post' action="" class="products">
               <a href="/products/show/<?=$i->id;?>">
                 <img class="card-img-top" src="/img/<?php echo $i->images[0]->src;?>" alt="<?=$i->title;?>">
               </a>
@@ -144,18 +66,24 @@
                   <h5 class="card-title bold"><a href="/products/show/<?=$i->id;?>"><?=$i->title;?></a></h5>
                 <h5 class="card-title"><?=$i->price;?></h5>
                 <h6 class="card-subtitle mb-2 text-muted">vendor code: <?=$i->code;?></h6>
-                <h6 class="card-subtitle mb-2 text-muted">in stock: <?=$i->in_stock;?></h6>
+                <?php if($i->in_stock>0) { ?>
+								<h6 class="card-subtitle mb-2 text-muted">in stock: <?=$i->in_stock;?></h6>
                 <div class="row">
                   <div class="col-sm">
                     <div class="col-20">
-                      <input class="form-control" name="qt" type="number" value="1" min="1" id="example-number-input">
+                      <input class="form-control" name="qt" type="number" value="1" min="1"  max="<?=$i->in_stock;?>" id="example-number-input">
+                      <input name="id" type="hidden" value="<?=$i->id;?>">
                     </div> 
                   </div>  	
                   <div class="col-sm">
-                    <button type="submit" class="btn btn-dark w-100">Add to Cart</button>
+                    <input type="submit" class="btn btn-dark w-100" value="Add to Cart">
                   </div>  
                 </div>
-                <p class="card-text wishlist-text"><i class="far fa-heart"></i>Add to wishlist</p>
+								<?php } else { ?>
+										<div class="alert alert-danger" role="alert">
+											goods ended
+										</div>
+								<?php } ?>
               </div>
             </form>
           </div>
