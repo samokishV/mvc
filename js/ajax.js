@@ -76,4 +76,67 @@ $(document).ready(function() {
 		  $(this).data("previousValue", $(this).val());
 	});
 
+    $("form.password-recovery").hide();
+    $("form.change-password").hide();
+    $("form.change-data").hide();                
+    
+    $("a#change-data").on("click", function() {
+        $("form.change-data").toggle();
+        $("form.password-recovery").hide();
+		$("form.change-password").hide();
+    });
+
+    $("a#change-password").on("click", function() {
+        $("form.change-password").toggle();
+        $("form.password-recovery").hide();
+        $("form.change-data").hide();
+    });
+
+    $("a#password-recovery").on("click", function() {
+        $("form.password-recovery").toggle();
+        $("form.change-data").hide()
+    });
+
+    $("form.change-data").submit(function() {
+        var str = $(this).serialize();
+          $.ajax({
+              type: "POST",
+              url: "/user/edit_data",
+              data: str,
+              success: function(html) {
+                  alert(html);
+                  if(html == "Data successfully changed!") {
+                      location.reload();
+                  }
+            }
+      });
+        return false;
+    });
+
+    $("form.change-password").submit(function() {
+        var str = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: "/user/edit_password",
+            data: str,
+            success: function(html) {
+                alert(html);
+            }
+        });
+        return false;
+    });
+
+	$("form.password-recovery").submit(function() {
+        var str = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: "/user/password_recovery",
+            data: str,
+            success: function(html) {
+                alert(html);
+            }
+        });
+        return false;
+    });
+
 });

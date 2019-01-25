@@ -16,11 +16,11 @@ class Authorization {
             } else {
                 $password = $user->password;
                 $login = $user->name;
+				$email = $user->email;
 
                 if ($password == hash('md5', $_POST['password'])) {
-                    session_write_close();
-                    session_start();
                     Session::set('login', $login);
+					Session::set('email', $email);
                     Session::setFlash('Authorization completed successfully.', 'success');
                     return true;
                 } else {
@@ -34,8 +34,6 @@ class Authorization {
 
     public static function isAuth() {
         if(isset($_COOKIE['PHPSESSID'])) {
-            session_write_close();
-            session_start();
             if(Session::get('login')) return true;
             else return self::login();
         }

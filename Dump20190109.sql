@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.24, for Linux (i686)
+-- MySQL dump 10.13  Distrib 5.7.25, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: samokish_db
 -- ------------------------------------------------------
@@ -97,7 +97,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Ficus lyrata','Ficus lyre is an evergreen tree. The leaves are large, leathery, with a waxy coating, wavy edges, widening towards the end, resembling a lyre or a violin.','plants',450,10370,10,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(2,'Araucaria','Default description','plants',250,20568,8,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(3,'Caryota mitis','Default description','plants',310,51423,18,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(4,'Codiaeum KL Mini Curl','Default description','plants',658,65874,2,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(5,'Dracaena Anita vertak','Default description','plants',125,99999,0,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(6,'Dracaena Riki','Default description','plants',312,85469,10,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(12,'Cordyline','Cordilina is a tree or shrub. Thick and strong roots in the cut have a white color. The shape of the leaf plates depends on the type of plant and can be lanceolate, xiphoid or linear. As a rule, the flowers are painted white or red, less often in lilac.','plants',480,52698,20,'2019-01-14 10:27:13','2019-01-14 10:27:13','decorative leafy'),(13,'Asystasia','Default description','plants',234,14789,5,'2019-01-14 10:34:10','2019-01-14 10:34:10','decorative leafy'),(14,'Rivina','Default description','plants',333,25897,11,NULL,NULL,'decorative leafy');
+INSERT INTO `products` VALUES (1,'Ficus lyre','Ficus lyre is an evergreen tree. The leaves are large, leathery, with a waxy coating, wavy edges, widening towards the end, resembling a lyre or a violin.','plants',450,10368,25,'2019-01-09 13:18:04','2019-01-22 22:27:14','krupnomery'),(2,'Araucaria','Default description','plants',250,20568,0,'2019-01-09 13:18:04','2019-01-21 13:39:23','krupnomery'),(3,'Caryota mitis','Default description','plants',310,51423,-2,'2019-01-09 13:18:04','2019-01-22 15:36:33','krupnomery'),(4,'Codiaeum KL Mini Curl','Default description','plants',658,65874,0,'2019-01-09 13:18:04','2019-01-22 11:06:14','krupnomery'),(5,'Dracaena Anita vertak','Default description','plants',125,99999,0,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(6,'Dracaena Riki','Default description','plants',312,85469,0,'2019-01-09 13:18:04','2019-01-22 16:14:09','krupnomery'),(12,'Cordyline','Cordilina is a tree or shrub. Thick and strong roots in the cut have a white color. The shape of the leaf plates depends on the type of plant and can be lanceolate, xiphoid or linear. As a rule, the flowers are painted white or red, less often in lilac.','plants',480,52698,37,'2019-01-14 10:27:13','2019-01-22 22:09:54','decorative leafy'),(13,'Asystasia','Default description','plants',234,14789,20,'2019-01-14 10:34:10','2019-01-22 22:20:43','decorative leafy'),(14,'Rivina','Default description','plants',333,25897,18,NULL,'2019-01-22 22:20:45','decorative leafy');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,9 +140,12 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
   `confirm` tinyint(1) DEFAULT '0',
   `hash` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `role` varchar(10) DEFAULT 'user',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -153,7 +156,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (14,'samokish.viktoria@gmail.com','d8578edf8458ce06fbc5bb76a58c5ca4','Viktoria',1,'01be04f0218f709101a2c462a5b463e9'),(15,'admin@mail.ru','d8578edf8458ce06fbc5bb76a58c5ca4','admin',0,NULL);
+INSERT INTO `users` VALUES (14,'samokish.viktoria@gmail.com','d8578edf8458ce06fbc5bb76a58c5ca4','VikaS',1,'01be04f0218f709101a2c462a5b463e9','+380980000000','Kiev','user'),(15,'admin@mail.ru','d8578edf8458ce06fbc5bb76a58c5ca4','admin',0,NULL,NULL,NULL,'user');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -166,4 +169,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-14 13:35:34
+-- Dump completed on 2019-01-25 12:05:38

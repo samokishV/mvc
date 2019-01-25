@@ -23,7 +23,7 @@
                 </div>
             </div>
             <input type="submit" class="btn btn-success btn-lg w-100" value="Sign in" required>
-            <p><a href="/auth/password_recovery">&nbsp;Forgot password? </a></p>
+            <p><a href="/user/password_recovery_page">&nbsp;Forgot password? </a></p>
         </form>
     </div>
 </div>
