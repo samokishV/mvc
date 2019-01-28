@@ -28,7 +28,7 @@ class Admin extends Controller
             $data = $this->model->get_list();
             $this->view->generate('products/admin_index.html', 'template_view.php', $data);
         } else
-            header("Location: /auth/");
+            header("Location: /user/login");
     }
 
     public function action_add()
@@ -45,7 +45,7 @@ class Admin extends Controller
             if (isset($id)) header("Location: /admin/");
             $this->view->generate('products/admin_add.html', 'template_view.php');
         } else
-            header("Location: /auth/");
+            header("Location: /user/login");
     }
 
     public function action_edit()
@@ -64,7 +64,7 @@ class Admin extends Controller
             $data = $this->model->get_product($id);
             $this->view->generate('products/admin_edit.html', 'template_view.php', $data);
         } else
-            header("Location: /auth/");
+            header("Location: /user/login");
     }
 
     public function action_delete()
@@ -77,6 +77,6 @@ class Admin extends Controller
             header("Location: /admin/");
         }
         else
-            header("Location: /auth/");
+            header("Location: /user/login");
     }
 }

@@ -28,12 +28,6 @@ class Route
         return $this->action;
     }
 
-/*    public function getParams()
-    {
-       return $this->params;
-    }
-*/
-
     public static function getParams()
     {
        return self::$params;
@@ -88,8 +82,8 @@ class Route
                 $this->action = "type_index";
                 self::$type = $routes[1];
                 array_shift($routes);
-                $routes[1] = str_replace('-', ' ', $routes[1]);
-                if(in_array($routes[1], $this->subtypes)) {
+                if(!empty($routes[1])) $routes[1] = str_replace('-', ' ', $routes[1]);
+                if(!empty($routes[1]) && in_array($routes[1], $this->subtypes)) {
                    $this->action = "subtype_index";
                    self::$subtype = $routes[1];
                    array_shift($routes); 
@@ -103,7 +97,12 @@ class Route
         }
 
         if (!empty($routes[3])) {
-           self::$params = $routes[3];
+            self::$params = $routes[3];
         }
+	    else {
+            self::$params = "";
+	    }
+
+	    return true;
     }
 }
