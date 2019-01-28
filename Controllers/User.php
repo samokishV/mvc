@@ -8,6 +8,8 @@ use App\Lib\Authorization as Authorization;
 use App\Lib\Session as Session;
 use App\Lib\Validation as Validation;
 use App\Lib\Sender as Sender;
+use App\Lib\Route as Route;
+use App\Models\Order as Order;
 
 class User extends Controller
 {
@@ -17,14 +19,67 @@ class User extends Controller
         $this->model = new \App\Models\User();
     }
 
+    public function action_login()
+    {
+        if ($_POST && isset($_POST['email']) && isset($_POST['password'])) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            Authorization::login($email, $password);
+        }
+        $data['title'] = "Authorization page";
+        $this->view->generate('auth_view.php', 'template_view.php');
+    }
+
+    public function action_logout()
+    {
+        Authorization::logout();
+        header("Location: /main/");
+    }
+
+    public function action_registration() 
+    {
+        if($_POST && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name'])) {
+           $name = $_POST['name'];
+           $email = $_POST['email'];
+           $password = $_POST['password'];
+           $result = $this->model->create($name, $email, $password);
+           if($result) {
+                Authorization::login($email, $password);
+            } 
+        }
+        $data['title'] = "Registration page";
+        $this->view->generate('registration_view.php', 'template_view.php', $data);
+    }
+
+    public function action_registration_approve()
+    {            
+        $route = new Route();
+        $route->start();
+        $params = $route->getParams();
+        $result = $this->model->confirmRegistration($params);
+        if($result) {
+            echo "Your account confirmed successfully";
+        }
+    }
+
     public function action_profile()
     {
         if(Authorization::isAuth()) {
             $email = Session::get('email');
-            $data = $this->model->getByEmail($email);
-            $this->view->generate('profile_view.php', 'template_view.php', $data);
+            $user = $this->model->getByEmail($email);
+            $route = new Route();
+            $route->start();
+            $params = $route->getParams(); 
+            if($params==null || $params=='settings')  {          
+                $this->view->generate('profile_view.php', 'template_view.php', $user);
+            } elseif($params=='order-history') {
+                $id = $user->id;
+                $order = new Order();
+                $data = $order->getByUserId($id);
+                $this->view->generate('history_view.php', 'template_view.php', $data);
+            }
         }
-        else header("Location: /auth/");
+        else header("Location: /user/login");
     }
 
     public function action_edit_data()
@@ -67,7 +122,7 @@ class User extends Controller
 	{
 		if(isset($_POST['email'])) {
 			$email = $_POST['email'];
-			$this->model->passwordRecovery($email);
+			$result = $this->model->passwordRecovery($email);
 		}
 	}
 
@@ -75,9 +130,7 @@ class User extends Controller
 	{
 		if(isset($_POST['email'])) {
 			$email = $_POST['email'];
-            ob_start();
 			$this->model->passwordRecovery($email);
-            ob_end_clean();
 		}
         $this->view->generate('recovery_view.php', 'template_view.php');
 	}    

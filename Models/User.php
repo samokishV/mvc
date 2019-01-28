@@ -9,9 +9,9 @@
 namespace App\Models;
 
 use App\Lib\Session as Session;
-use App\Lib\Authorization as Authorization;
 use App\Lib\Validation as Validation;
 use App\Lib\Sender as Sender;
+use App\ActiveRecord\Users as Users;
 
 class User
 {
@@ -24,40 +24,60 @@ class User
         }
     }
 
+    public function create($name, $email, $password) 
+    {
+       if(Validation::emailNotExists($email)) {
+            $user = Users::create(array('email' => $email, 'password' => hash('md5', $password), 'name' => $name, 'hash' => hash('md5', $email)));
+            $link = 'localhost/user/registration_approve/'.hash('md5', $email);
+            $mail = new Sender();
+            $mail->send_link($name, $email, $link);
+			return true;         
+        }
+		else {
+			Session::setFlash('This email is already registered.', 'danger');
+			return false;
+		}
+    }
+
+    public function confirmRegistration($hash) 
+    {
+        $user = Users::find_by_hash($hash);
+        if(isset($user)) {
+            $user->confirm = 1;
+            $user->save();
+            return true;
+        }
+        else return false;
+    }
+
     public function getByEmail($email)
     {
-        $user = \Users::find_by_email($email);
+        $user = Users::find_by_email($email);
         return $user;
     }
 
     public static function getValue($user, $field)
     {
-        if($user->$field) {
+        if(isset($user->$field)) {
             return $user->$field;
         }
-        else return "No data";
+        else return "";
     }
 
     public function changeValue($field, $value, $email)
     {
-        $user = \Users::find_by_email($email);
+        $user = Users::find_by_email($email);
         $user->$field = $value;
         $user->save();
         return true;
     }
 
-	public static function generatePassword()
-	{
-		$password = random_int(100000, 999999);
-		return $password;
-	} 
-
     public function passwordRecovery($email)
     {
         if(Validation::emailExists($email)) {
-            $user = \Users::find_by_email($email);
+            $user = Users::find_by_email($email);
 			$name = $user->name;
-            $password = User::generatePassword();
+            $password = random_int(100000, 999999);
             $user->password = hash('md5', $password);
             $user->save();
 			$mail = new Sender();
@@ -70,7 +90,7 @@ class User
     public function changePassword($email, $oldPassword, $newPassword, $confirmPassword)
     {
         if(Validation::checkPasswordChange($oldPassword, $newPassword, $confirmPassword)) {
-            $user = \Users::find_by_email($email);
+            $user = Users::find_by_email($email);
             $passwordHash = hash('md5', $newPassword);
             $user->password = $passwordHash;
             $user->save();
@@ -82,7 +102,7 @@ class User
     public function changeEmail($postEmail, $sessionEmail) 
     {
         if(!Validation::emailExists($postEmail) || (Validation::emailExists($postEmail) && Validation::emailsEqual($postEmail, $sessionEmail))) {
-            $user = \Users::find_by_email($sessionEmail);
+            $user = Users::find_by_email($sessionEmail);
             $user->email = $postEmail;
             $user->save();
             return true;

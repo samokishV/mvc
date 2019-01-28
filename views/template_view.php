@@ -45,10 +45,10 @@
                 <li class="nav-item">
                     <?php if(App\Lib\Authorization::isAuth()) { ?>
                         <li> <a class="nav-link" href="#">Hello, <?php echo App\Lib\Authorization::getlogin(); ?>!</a> </li>
-                        <li> <a class="nav-link" href="/auth/quit/" onclick="return confirmDelete();">Log out</a> </li>
+                        <li> <a class="nav-link" href="/user/logout/" onclick="return confirmDelete();">Log out</a> </li>
                     <?php }
                     else { ?>
-                        <li> <a class="nav-link" href="/registration/">Log in</a> </li>
+                        <li> <a class="nav-link" href="/user/registration/">Log in</a> </li>
                     <?php } ?>
                 </li>
             </ul>

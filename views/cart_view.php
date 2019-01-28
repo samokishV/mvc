@@ -5,7 +5,7 @@
   </ol>
 </nav>
 <div class="container w-100 main">
-  <?php if(isset($data)) foreach($data as $key=>$i) { ?>
+  <?php if(isset($data)) foreach($data as $key=>$i) { if(gettype($i[0])=='object') {?>
 	<form method='post' action="" class="products-delete">
 		<div class="row justify-content-md-center card-body cart-product">
 		  <div class="col col-lg-2">
@@ -28,8 +28,8 @@
 		      <tbody>
 		        <tr>
 		          <td class="align-middle text-right">
-									<input name="id" type="hidden" value="<?=$i[0]->id;?>">
-									<input name="action" type="hidden" value="" id="<?=$i[0]->id;?>action">
+                      <input name="id" type="hidden" value="<?=$i[0]->id;?>">
+                      <input name="action" type="hidden" value="" id="<?=$i[0]->id;?>action">
 		              <input class="form-control w-80" type="number" id="<?=$i[0]->id;?>" value="<?php echo $i['qt']; ?>" min="1" max="<?=$i[0]->in_stock;?>" name="qt">
 		              <label for="example-number-input" class="cart-big-txt"><span id="<?=$i[0]->id;?>total"><?php echo $i['total'];?></span> UAH</label>
 		          </td>       
@@ -39,14 +39,14 @@
 		  </div>
 		</div>
 	</form>
-  <?php } else echo 'The cart is empty!'; ?>
+  <?php }} else echo 'The cart is empty!'; ?>
   <div class="row">
     <div class="w-50">
       <a href="/products/" class="cart-big-txt"><i class="fas fa-arrow-left"></i>&nbsp;Back to shopping</a>
     </div>
     <div class="w-50">
       <p class="text-right cart-big-txt">
-        <a href="#">Checkout&nbsp;<i class="fas fa-arrow-right"></i></a>
+        <a href="/order/">Checkout&nbsp;<i class="fas fa-arrow-right"></i></a>
       <p>
     </div>
   </div>

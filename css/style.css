@@ -125,3 +125,9 @@ html, body {
 .footer-copyright a:hover{
   text-decoration:none;
 }
+
+.order-table td, th {
+  padding:10px;
+  border: 1pt solid lightGrey;
+}
+

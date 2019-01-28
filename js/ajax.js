@@ -139,4 +139,18 @@ $(document).ready(function() {
         return false;
     });
 
+	$("form.checkout").submit(function() {
+		var str = $(this).serialize();
+		$.ajax({
+			type: "POST",
+			url: "/order/create",
+			data: str,
+			success: function(html) {
+				//alert('yes');
+				alert(html);
+			}
+		});
+		return false;
+	});
+
 });

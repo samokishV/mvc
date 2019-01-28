@@ -9,6 +9,8 @@
 namespace App\Lib;
 
 use App\Models\User;
+use App\ActiveRecord\Users;
+use App\Lib\Session as Session;
 
 class Validation
 {
@@ -51,9 +53,16 @@ class Validation
         else return false;
     }
 
+    public static function emailNotExists($email)
+    {
+		$user = Users::find_by_email($email);
+		if(!$user) return true;
+        else return false;
+    }
+
 	public static function emailExists($email) 
 	{
-		$user = \Users::find_by_email($email);
+		$user = Users::find_by_email($email);
 		if($user) return true;
 		else {
 			echo "Incorrect email. Please try again.";

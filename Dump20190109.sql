@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.25, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: samokish_db
 -- ------------------------------------------------------
@@ -53,11 +53,11 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `total` int(45) NOT NULL,
-  `date` datetime DEFAULT NULL,
+  `date` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +66,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (1,17,3648,NULL),(2,18,3648,'2019-01-25 19:50:18'),(3,19,3648,'2019-01-25 19:51:36'),(4,20,3648,'2019-01-25 19:54:09'),(5,21,3648,'2019-01-25 19:54:29'),(6,22,3648,'2019-01-25 19:56:16'),(7,23,3648,'2019-01-25 19:57:08');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +98,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Ficus lyre','Ficus lyre is an evergreen tree. The leaves are large, leathery, with a waxy coating, wavy edges, widening towards the end, resembling a lyre or a violin.','plants',450,10368,25,'2019-01-09 13:18:04','2019-01-22 22:27:14','krupnomery'),(2,'Araucaria','Default description','plants',250,20568,0,'2019-01-09 13:18:04','2019-01-21 13:39:23','krupnomery'),(3,'Caryota mitis','Default description','plants',310,51423,-2,'2019-01-09 13:18:04','2019-01-22 15:36:33','krupnomery'),(4,'Codiaeum KL Mini Curl','Default description','plants',658,65874,0,'2019-01-09 13:18:04','2019-01-22 11:06:14','krupnomery'),(5,'Dracaena Anita vertak','Default description','plants',125,99999,0,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(6,'Dracaena Riki','Default description','plants',312,85469,0,'2019-01-09 13:18:04','2019-01-22 16:14:09','krupnomery'),(12,'Cordyline','Cordilina is a tree or shrub. Thick and strong roots in the cut have a white color. The shape of the leaf plates depends on the type of plant and can be lanceolate, xiphoid or linear. As a rule, the flowers are painted white or red, less often in lilac.','plants',480,52698,37,'2019-01-14 10:27:13','2019-01-22 22:09:54','decorative leafy'),(13,'Asystasia','Default description','plants',234,14789,20,'2019-01-14 10:34:10','2019-01-22 22:20:43','decorative leafy'),(14,'Rivina','Default description','plants',333,25897,18,NULL,'2019-01-22 22:20:45','decorative leafy');
+INSERT INTO `products` VALUES (1,'Ficus lyre','Ficus lyre is an evergreen tree. The leaves are large, leathery, with a waxy coating, wavy edges, widening towards the end, resembling a lyre or a violin.','plants',450,10368,21,'2019-01-09 13:18:04','2019-01-25 15:18:10','krupnomery'),(2,'Araucaria','Default description','plants',250,20568,0,'2019-01-09 13:18:04','2019-01-21 13:39:23','krupnomery'),(3,'Caryota mitis','Default description','plants',310,51423,-2,'2019-01-09 13:18:04','2019-01-22 15:36:33','krupnomery'),(4,'Codiaeum KL Mini Curl','Default description','plants',658,65874,0,'2019-01-09 13:18:04','2019-01-22 11:06:14','krupnomery'),(5,'Dracaena Anita vertak','Default description','plants',125,99999,0,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(6,'Dracaena Riki','Default description','plants',312,85469,0,'2019-01-09 13:18:04','2019-01-22 16:14:09','krupnomery'),(12,'Cordyline','Cordilina is a tree or shrub. Thick and strong roots in the cut have a white color. The shape of the leaf plates depends on the type of plant and can be lanceolate, xiphoid or linear. As a rule, the flowers are painted white or red, less often in lilac.','plants',480,52698,36,'2019-01-14 10:27:13','2019-01-25 17:54:12','decorative leafy'),(13,'Asystasia','Default description','plants',234,14789,18,'2019-01-14 10:34:10','2019-01-25 17:54:10','decorative leafy'),(14,'Rivina','Default description','plants',333,25897,18,NULL,'2019-01-22 22:20:45','decorative leafy');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,13 +112,15 @@ DROP TABLE IF EXISTS `products_orders`;
 CREATE TABLE `products_orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `orders_id` int(11) DEFAULT NULL,
-  `plants_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `qt` int(11) DEFAULT NULL,
+  `total` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orders_id` (`orders_id`),
-  KEY `plants_id` (`plants_id`),
+  KEY `plants_id` (`product_id`),
   CONSTRAINT `products_orders_ibfk_1` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `products_orders_ibfk_2` FOREIGN KEY (`plants_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `products_orders_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,6 +129,7 @@ CREATE TABLE `products_orders` (
 
 LOCK TABLES `products_orders` WRITE;
 /*!40000 ALTER TABLE `products_orders` DISABLE KEYS */;
+INSERT INTO `products_orders` VALUES (1,6,1,6,2700),(2,6,13,2,468),(3,6,12,1,480),(4,7,1,6,2700),(5,7,13,2,468),(6,7,12,1,480);
 /*!40000 ALTER TABLE `products_orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +143,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `password` varchar(45) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `confirm` tinyint(1) DEFAULT '0',
   `hash` varchar(45) DEFAULT NULL,
@@ -147,7 +151,7 @@ CREATE TABLE `users` (
   `address` varchar(45) DEFAULT NULL,
   `role` varchar(10) DEFAULT 'user',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +160,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (14,'samokish.viktoria@gmail.com','d8578edf8458ce06fbc5bb76a58c5ca4','VikaS',1,'01be04f0218f709101a2c462a5b463e9','+380980000000','Kiev','user'),(15,'admin@mail.ru','d8578edf8458ce06fbc5bb76a58c5ca4','admin',0,NULL,NULL,NULL,'user');
+INSERT INTO `users` VALUES (14,'samokish.viktoria@gmail.com','d8578edf8458ce06fbc5bb76a58c5ca4','VikaS',1,'01be04f0218f709101a2c462a5b463e9','+380980000000','Kiev','user'),(15,'admin@mail.ru','d8578edf8458ce06fbc5bb76a58c5ca4','admin',0,NULL,NULL,NULL,'user'),(16,'1@1.1',NULL,'1',0,NULL,'1','1','guest'),(17,'1@1.1',NULL,'1',0,NULL,'1','1','guest'),(18,'1@1.1',NULL,'1',0,NULL,'1','1','guest'),(19,'1@1.1',NULL,'1',0,NULL,'1','1','guest'),(20,'1@1.1',NULL,'1',0,NULL,'1','1','guest'),(21,'1@1.1',NULL,'1',0,NULL,'1','1','guest'),(22,'1@1.1',NULL,'1',0,NULL,'1','1','guest'),(23,'1@1.1',NULL,'1',0,NULL,'1','1','guest');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -169,4 +173,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-25 12:05:38
+-- Dump completed on 2019-01-25 20:51:24

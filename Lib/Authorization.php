@@ -2,18 +2,21 @@
 
 namespace App\Lib;
 
+use App\ActiveRecord\Users as Users;
+use App\Models\User as User;
+use App\Lib\Cookie as Cookie;
+
 class Authorization {
 
-    public function login()
+    public function login($email, $password)
     {
-
-        if ($_POST && isset($_POST['email']) && isset($_POST['password'])) {
-
-            $user = \Users::find_by_email($_POST['email']);
-            if (!isset($user)) {
+        if (isset($email) && isset($password)) {
+            if (!Validation::emailExists($email)) {
                 Session::setFlash('Incorrect email. Please try again.', 'danger');
                 return false;
             } else {
+                $user = new User();
+                $user = $user->getByEmail($email);
                 $password = $user->password;
                 $login = $user->name;
 				$email = $user->email;
@@ -21,6 +24,8 @@ class Authorization {
                 if ($password == hash('md5', $_POST['password'])) {
                     Session::set('login', $login);
 					Session::set('email', $email);
+                    Cookie::set('login', $login);
+                    Cookie::set('email', $email);
                     Session::setFlash('Authorization completed successfully.', 'success');
                     return true;
                 } else {
@@ -29,16 +34,20 @@ class Authorization {
                 }
             }
         }
-
     }
 
     public static function isAuth() {
-        if(isset($_COOKIE['PHPSESSID'])) {
-            if(Session::get('login')) return true;
-            else return self::login();
-        }
-
-        else return self::login();
+            if(Session::get('login') && Session::get('email')) return true;
+            else {
+                if(Cookie::get('login') && Cookie::get('email')) {
+                    $login = Cookie::get('login');
+                    $email = Cookie::get('email');
+                    Session::set('login', $login);
+					Session::set('email', $email);
+                    return true;
+                }
+                else return false; 
+            }
     }
 
     public static function getlogin() {
@@ -47,7 +56,10 @@ class Authorization {
     }
 
     public function logout() {
-        if(self::isAuth()) Session::delete('login');
+        if(self::isAuth()) {
+            Session::delete('login');
+            Session::delete('email');
+            Cookie::deleteAll();
+        }
     }
-
 }

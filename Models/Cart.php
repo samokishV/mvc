@@ -17,10 +17,12 @@ class Cart
 
     public function getProducts()
     {
+        $totalPrice = 0;
         foreach($this->products as $index=>$qt) {
             $product = \Products::find_by_id($index);
             $price = $product->price;
             $total = $qt*$price;
+            $totalPrice += $total;
             $this->cart[$index] = array($product, 'qt'=>$qt, 'total'=>$total);
         }
         return $this->cart;
@@ -29,6 +31,18 @@ class Cart
     public function countProducts() 
     {
 		return count($this->products);
+    }
+
+    public function getTotalPrice()
+    {
+        $totalPrice = 0;
+        foreach($this->products as $index=>$qt) {
+            $product = \Products::find_by_id($index);
+            $price = $product->price;
+            $total = $qt*$price;
+            $totalPrice += $total;
+        }
+        return $totalPrice;
     }
 
     public function addProduct($id, $qt)

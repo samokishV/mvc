@@ -20,7 +20,8 @@
             "App\\Controllers\\": "Controllers/",
             "App\\Lib\\": "Lib/",
             "App\\Models\\": "Models/",
-            "Sender\\": "Sender/"
+            "App\\ActiveRecord\\": "ActiveRecord/models",
+            "App\\Sender\\": "Sender/"
         }
     }
 }

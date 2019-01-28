@@ -8,8 +8,8 @@
 <div class="container main">
     <div class="row">
         <div class="col-sm">
-            <a href='/users/order-history' class="list-group-item list-group-item-action">Order history</a>
-            <a href='/users/settings' class="list-group-item list-group-item-action">Settings</a>
+            <a href='/user/profile/order-history' class="list-group-item list-group-item-action">Order history</a>
+            <a href='/user/profile/settings' class="list-group-item list-group-item-action">Settings</a>
         </div>
         <div class="col-sm">
             <h3>My settings</h3>
