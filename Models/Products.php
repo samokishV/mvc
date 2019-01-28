@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Lib\Route as Route;
+//use App\Lib\Pagination as Pagination;
 
 class Products
 {
     public static $products;
+    public static $number_of_page;
 
     public function add()
     {
@@ -46,23 +48,47 @@ class Products
 		}
     }
 
-	public function get_list()
-	{	
-	    $products = \Products::find('all');
-		return $products;		
-	}
-
-    public function get_by_type()
+    public static function setNumberOfPage($number)
     {
+        self::$number_of_page = $number;
+    }
+
+    public static function getNumberOfPage()
+    {
+        return self::$number_of_page;
+    }
+
+    public function get_list()
+    {
+        $products = \Products::find('all');
+        return $products;
+    }
+
+    public function get_by_type($page)
+    {
+        $page = (int) $page;
         $type = Route::getType();
-	    $products = \Products::find('all', array('conditions' => "type LIKE '".$type."'"));
+        $products_number = count(\Products::find('all', array('conditions' => "type LIKE '".$type."'")));
+        $products_on_page = 3;
+        $number_of_pages = ceil($products_number/$products_on_page);
+        self::setNumberOfPage($number_of_pages);
+        $start = $products_on_page*($page-1);
+	    $products = \Products::find('all', array('conditions' => "type LIKE '".$type."'",
+            'limit' => $products_on_page, 'offset' => $start));
 		return $products;	
     }
 
-    public function get_by_subtype()
+    public function get_by_subtype($page)
     {
+        $page = (int) $page;
         $subtype = Route::getSubtype();
-	    $products = \Products::find('all', array('conditions' => "subtype LIKE '".$subtype."'"));
+        $products_number = count(\Products::find('all', array('conditions' => "subtype LIKE '".$subtype."'")));
+        $products_on_page = 3;
+        $number_of_pages = ceil($products_number/$products_on_page);
+        self::setNumberOfPage($number_of_pages);
+        $start = $products_on_page*($page-1);
+	    $products = \Products::find('all', array('conditions' => "subtype LIKE '".$subtype."'",
+            'limit' => $products_on_page, 'offset' => $start));
 		return $products;	
     }
 

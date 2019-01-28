@@ -53,7 +53,6 @@ class RouteTest extends TestCase
         //expected controllers
         return [
             ["/main", "Main"],
-            ["/products", "Products"],
             ["/plants", "Products"],
             ["/plants/krupnomery", "Products"],
             ["/plants/decorative-leafy", "Products"],
@@ -78,7 +77,6 @@ class RouteTest extends TestCase
         //expected actions
         return [
             ["/main", "index"],
-            ["/products", "index"],
             ["/plants", "type_index"],
             ["/plants/krupnomery", "subtype_index"],
             ["/plants/decorative-leafy", "subtype_index"],
@@ -102,22 +100,21 @@ class RouteTest extends TestCase
     {
         //expected params
         return [
-            ["/main", ""],
-            ["/products", ""],
-            ["/plants", ""],
-            ["/plants/krupnomery", ""],
-            ["/plants/decorative-leafy", ""],
+            ["/main", "1"],
+            ["/plants", "1"],
+            ["/plants/krupnomery", "1"],
+            ["/plants/decorative-leafy", "1"],
             ["/products/show/12", "12"],
-            ["/cart", ""],
-            ["/order", ""],
-            ["/user/registration", ""],
-            ["/user/login/", ""],
-            ["/user/logout/", ""],
-            ["/user/password_recovery_page", ""],
-            ["/user/profile", ""],
+            ["/cart", "1"],
+            ["/order", "1"],
+            ["/user/registration", "1"],
+            ["/user/login/", "1"],
+            ["/user/logout/", "1"],
+            ["/user/password_recovery_page", "1"],
+            ["/user/profile", "1"],
             ["/user/profile/settings", "settings"],
             ["/user/profile/order-history", "order-history"],
-            ["/admin/add", ""],
+            ["/admin/add", "1"],
             ["/admin/edit/1", "1"],
             ["/admin/delete/12", "12"],
         ];

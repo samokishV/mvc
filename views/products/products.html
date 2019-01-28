@@ -79,29 +79,39 @@
                     <input type="submit" class="btn btn-dark w-100" value="Add to Cart">
                   </div>  
                 </div>
-								<?php } else { ?>
-										<div class="alert alert-danger" role="alert">
-											goods ended
-										</div>
-								<?php } ?>
+                  <?php } else { ?>
+                    <div class="alert alert-danger" role="alert">
+                        goods ended
+                    </div>
+                  <?php } ?>
               </div>
             </form>
           </div>
           <?php } ?>
           <nav aria-label="Page navigation example" class="w-100">
+            <?php use App\Lib\Route as Route;
+                  use App\Models\Products as Products;
+              $pages = Products::getNumberOfPage();
+              $current = Route::getParams();
+              $url = "";
+              if(Route::getType()) $url .= '/'.Route::getType().'/';
+              if(Route::getSubType()) $url .= Route::getSubType().'/';
+              $prev = $current-1;
+              $next = $current+1;
+            ?>
             <ul class="pagination justify-content-center">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
+              <li class="page-item <?php if($prev==0) { ?> disabled <?php } ?>">
+                <a class="page-link" href="<?php echo $url.$prev;?>" aria-label="Previous" >
                   <span aria-hidden="true">&laquo;</span>
                   <span class="sr-only">Previous</span>
                 </a>
               </li>
-              <?php $pages = 1; $current = 1; ?>
               <?php for($i=1; $i<=$pages; $i++) { ?>
-              <li class="page-item <?php if($i==$current) echo 'active'?>"><a class="page-link" href="/product/<?=$i;?>"><?=$i;?></a></li>
+              <li class="page-item <?php if($i==$current) echo 'active'?>"><a class="page-link"
+                  href="<?php echo $url.$i;?>"><?=$i;?></a></li>
               <?php } ?>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
+              <li class="page-item <?php if($next>$pages) { ?> disabled <?php } ?>">
+                <a class="page-link" href="<?php echo $url.$next;?>" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                   <span class="sr-only">Next</span>
                 </a>

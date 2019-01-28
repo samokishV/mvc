@@ -19,21 +19,17 @@ class Products extends Controller
         $this->view = new View();
     }
 
-    public function action_index()
-    {
-        $data = $this->model->get_list();
-        $this->view->generate('products/products.html', 'template_view.php', $data);
-    }
-
     public function action_type_index()
     {
-        $data = $this->model->get_by_type();
+        $page = Route::getParams();
+        $data = $this->model->get_by_type($page);
         $this->view->generate('products/products.html', 'template_view.php', $data);
     }
 
     public function action_subtype_index()
     {
-        $data = $this->model->get_by_subtype();
+        $page = Route::getParams();
+        $data = $this->model->get_by_subtype($page);
         $this->view->generate('products/products.html', 'template_view.php', $data);
     }
 

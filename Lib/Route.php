@@ -11,7 +11,7 @@ class Route
 {
     protected $controller = "Main";
     protected $action = "index";
-    protected static $params;
+    protected static $params = "1";
     protected $types = ['plants'];
     protected $subtypes = ['krupnomery', 'decorative leafy'];
     protected static $type;
@@ -88,6 +88,7 @@ class Route
                    self::$subtype = $routes[1];
                    array_shift($routes); 
                 }
+                if(!empty($routes[1])) $routes[3] = $routes[1];
             }
             else $this->controller = ucfirst($routes[1]);
         }
@@ -100,7 +101,7 @@ class Route
             self::$params = $routes[3];
         }
 	    else {
-            self::$params = "";
+            self::$params = "1";
 	    }
 
 	    return true;
