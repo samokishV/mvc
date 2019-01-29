@@ -146,7 +146,7 @@ $(document).ready(function() {
 			url: "/order/create",
 			data: str,
 			success: function(html) {
-				//alert('yes');
+
 				alert(html);
 			}
 		});

@@ -40,4 +40,12 @@ class Products extends Controller
         $this->view->generate('products/product.html', 'template_view.php', $data);
     }
 
+    public function action_search()
+    {
+        if(isset($_POST['keyword'])) {
+            $keyword = $_POST['keyword'];
+            $data = $this->model->search($keyword);
+            $this->view->generate('products/products.html', 'template_view.php', $data);
+        }
+    }
 }

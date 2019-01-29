@@ -36,13 +36,14 @@
             <table border cellspacing="0" width="400px" class="order-table">
                 <tr><th>Product</th><th>Price</th></tr>
                 <?php $total_price = 0;
+                 if(isset($data['cart'])) {
                  foreach ($data['cart'] as $product) {
-                 $total_price += $product['total']; ?>
-                    <tr>
-                        <td><?=$product[0]->title;?> x <?=$product['qt'];?></td>
-                        <td><?=$product['total'];?> ₴ </td>
-                    </tr>
-                <?php } ?>
+                   $total_price += $product['total']; ?>
+                      <tr>
+                          <td><?=$product[0]->title;?> x <?=$product['qt'];?></td>
+                          <td><?=$product['total'];?> ₴ </td>
+                      </tr>
+                  <?php }} ?>
                 <tr>
                     <th>Total</th>
                     <th><?=$total_price;?> ₴ </th>

@@ -70,7 +70,7 @@ class User extends Controller
             $route = new Route();
             $route->start();
             $params = $route->getParams(); 
-            if($params==null || $params=='settings')  {          
+            if($params==1 || $params=='settings')  {          
                 $this->view->generate('profile_view.php', 'template_view.php', $user);
             } elseif($params=='order-history') {
                 $id = $user->id;

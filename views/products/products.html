@@ -17,77 +17,73 @@
     </nav>
     <div class="container main">
       <div class="row">
-        <div class="col-sm card" width="20rem;">
-					<div class="list-group">
+        <div class="col-sm card m-2" width="20rem;">
+					<div class="list-group" style="padding-top:20px;">
 					  <a href='/plants/' class="list-group-item list-group-item-action">All plants</a>
 					  <a href='/plants/decorative-leafy' class="list-group-item list-group-item-action">Decorative leafy</a>
 					  <a href='/plants/krupnomery' class="list-group-item list-group-item-action">Krupnomery</a>
 					</div>
           <div class="card-body">
-            <div class="search-options-block">
-              <h5 class="card-title">Product type</h5>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label text-muted" for="defaultCheck1">
-                  Option 1 <span class="badge badge-primary">4</span>
-                </label>
+            <form method="post" action="" id="search">
+              <div class="search-options-block">
+                <h5 class="card-title">Options</h5>
+                <div class="form-check">
+                  <input name="in_stock" value="Yes" <?php if(isset($_POST['in_stock'])) 
+                      if(isset($_POST['in_stock'])) { ?> checked <?php } ?> 
+                      class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label text-muted" for="defaultCheck1">in stock</label>
+                </div>
+                <div class="form-check">
+                  <input name="not_in_stock" value="No" <?php if(isset($_POST['not_in_stock']))
+                    if(isset($_POST['not_in_stock'])) { ?> checked <?php } ?>
+                    class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                  <label class="form-check-label text-muted" for="defaultCheck2">not in stock</label>
+                </div>
               </div>
-            </div>
-            <form>
               <div class="form-group">
                 <label for="formControlRange">
-                  <h5 class="card-title">Price</h5>
+                  <h5 class="card-title">Price < <span id="slidernumber"> </span></h5>
                 </label>
-                <input type="range" class="form-control-range" id="formControlRange">
+                <input type="range" name="price" class="form-control-range" id="formControlRange" min=0 max="1000" step="50"
+                  value="<?=$_POST['price']?>">
               </div>
-            </form>
-          </div> 
+              <input type="submit" class="btn btn-success btn-lg w-100" value="Search">
+            </div>
+          </form> 
         </div>
-				<div id="myModal" class="modal" tabindex="-1" role="dialog">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title">Product successfully add to cart</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								  <span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-        <div class="col-sm-10 row space-between">
-          <?php foreach($data as $i) { ?>
-          <div class="card" style="width: 18rem;">
-            <form method='post' action="" class="products">
-              <a href="/products/show/<?=$i->id;?>">
-                <img class="card-img-top" src="/img/<?php echo $i->images[0]->src;?>" alt="<?=$i->title;?>">
-              </a>
-              <div class="card-body">              
-                  <h5 class="card-title bold"><a href="/products/show/<?=$i->id;?>"><?=$i->title;?></a></h5>
-                <h5 class="card-title"><?=$i->price;?></h5>
-                <h6 class="card-subtitle mb-2 text-muted">vendor code: <?=$i->code;?></h6>
-                <?php if($i->in_stock>0) { ?>
-								<h6 class="card-subtitle mb-2 text-muted">in stock: <?=$i->in_stock;?></h6>
-                <div class="row">
-                  <div class="col-sm">
-                    <div class="col-20">
-                      <input class="form-control" name="qt" type="number" value="1" min="1"  max="<?=$i->in_stock;?>" id="example-number-input">
-                      <input name="id" type="hidden" value="<?=$i->id;?>">
-                    </div> 
-                  </div>  	
-                  <div class="col-sm">
-                    <input type="submit" class="btn btn-dark w-100" value="Add to Cart">
-                  </div>  
+        <div class="col-sm-10 row d-flex justify-content-start">
+            <?php foreach($data as $i) { ?>
+            <div class="card m-2" style="width: 18rem;">
+              <form method='post' action="" class="products">
+                <a href="/products/show/<?=$i->id;?>">
+                  <img class="card-img-top" src="/img/<?php echo $i->images[0]->src;?>" alt="<?=$i->title;?>">
+                </a>
+                <div class="card-body">              
+                    <h5 class="card-title bold"><a href="/products/show/<?=$i->id;?>"><?=$i->title;?></a></h5>
+                  <h5 class="card-title"><?=$i->price;?></h5>
+                  <h6 class="card-subtitle mb-2 text-muted">vendor code: <?=$i->code;?></h6>
+                  <?php if($i->in_stock>0) { ?>
+								  <h6 class="card-subtitle mb-2 text-muted">in stock: <?=$i->in_stock;?></h6>
+                  <div class="row">
+                    <div class="col-sm">
+                      <div class="col-20">
+                        <input class="form-control" name="qt" type="number" value="1" min="1"  max="<?=$i->in_stock;?>" id="example-number-input">
+                        <input name="id" type="hidden" value="<?=$i->id;?>">
+                      </div> 
+                    </div>  	
+                    <div class="col-sm">
+                      <input type="submit" class="btn btn-dark w-100" value="Add to Cart">
+                    </div>  
+                  </div>
+                    <?php } else { ?>
+                      <div class="alert alert-danger" role="alert">
+                          goods ended
+                      </div>
+                    <?php } ?>
                 </div>
-                  <?php } else { ?>
-                    <div class="alert alert-danger" role="alert">
-                        goods ended
-                    </div>
-                  <?php } ?>
-              </div>
-            </form>
-          </div>
-          <?php } ?>
+              </form>
+            </div>
+            <?php } ?>
           <nav aria-label="Page navigation example" class="w-100">
             <?php use App\Lib\Route as Route;
                   use App\Models\Products as Products;
@@ -121,4 +117,6 @@
         </div>  
       </div>
     </div>
+  <script src="/js/productPage.js"> </script>
+
 

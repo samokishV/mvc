@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Delivery</a>
+                    <a class="nav-link" href="/plants/">Catalog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/contacts/">Contact Us</a>
@@ -27,8 +27,8 @@
             </ul>
             <ul class="navbar-nav mr-right">
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <form action="/products/search" method="post" class="form-inline my-2 my-lg-0">
+                        <input name="keyword" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </li>
@@ -44,7 +44,7 @@
                 </li>
                 <li class="nav-item">
                     <?php if(App\Lib\Authorization::isAuth()) { ?>
-                        <li> <a class="nav-link" href="#">Hello, <?php echo App\Lib\Authorization::getlogin(); ?>!</a> </li>
+                        <li> <a class="nav-link">Hello, <?php echo App\Lib\Authorization::getlogin(); ?>!</a> </li>
                         <li> <a class="nav-link" href="/user/logout/" onclick="return confirmDelete();">Log out</a> </li>
                     <?php }
                     else { ?>
@@ -71,13 +71,13 @@
                     <h5 class="text-uppercase">Contacts</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!"><i class="fas fa-map-marker-alt"></i>&nbsp;Ukraine, Kharkov, st. Shevchenko 2</a>
+                            <i class="fas fa-map-marker-alt"></i>&nbsp;Ukraine, Kharkov, st. Shevchenko 2
                         </li>
                         <li>
-                            <a href="#!"><i class="fas fa-mobile-alt"></i>&nbsp;+38(098)-00-00-000</a>
+                            <i class="fas fa-mobile-alt"></i>&nbsp;+38(098)-00-00-000
                         </li>
                         <li>
-                            <a href="#!"><i class="fas fa-at"></i>&nbsp;support@gmail.com</a>
+                            <i class="fas fa-at"></i>&nbsp;support@gmail.com
                         </li>
                     </ul>
                 </div>
@@ -85,13 +85,13 @@
                     <h5 class="text-uppercase">Profile</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!">My account</a>
+                            <a href="/user/profile/">My account</a>
                         </li>
                         <li>
-                            <a href="#!">Order tracking</a>
+                            <a>Order tracking</a>
                         </li>
                         <li>
-                            <a href="#!">Help and support</a>
+                            <a>Help and support</a>
                         </li>
                     </ul>
                 </div>
@@ -99,13 +99,13 @@
                     <h5 class="text-uppercase">Home</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!">Catalog</a>
+                            <a href="/plants/">Catalog</a>
                         </li>
                         <li>
-                            <a href="#!">Payment and delivery</a>
+                            <a>Payment and delivery</a>
                         </li>
                         <li>
-                            <a href="#!">Discounts</a>
+                            <a>Discounts</a>
                         </li>
                     </ul>
                 </div>
@@ -113,7 +113,7 @@
         </div>
         <div class="footer-copyright text-center py-3 bg-primary-dark">
             <span class="light-blue-text">&#169; 2018 Copyright:</span>
-            <a href="#" class="text-white"> Fitonia.com</a>
+            <a href="/main/" class="text-white"> Fitonia.com</a>
         </div>
     </footer>
     <script src="/js/delete.js"> </script>
