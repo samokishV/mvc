@@ -71,8 +71,6 @@ class Admin extends Controller
     {
         if(User::isAdmin()) {
             $id = Route::getParams();
-			$images = new \App\Models\Images();
-			$images->deleteAll($id);
             $this->model->delete($id);
             header("Location: /admin/");
         }

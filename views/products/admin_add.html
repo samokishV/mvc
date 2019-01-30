@@ -1,3 +1,12 @@
+<script><?php
+	use App\Models\Products as Products;
+	$categories = Products::getCategoriesList();
+	foreach($categories as $item) {
+		$categories_copy[] = $item;
+	}
+	echo 'categories = ' . json_encode($categories) . ';';
+?></script>
+<script src="/js/selectTypeCategory.js"></script>
 <div class="container main">
   <p><h3>Add product</h3></p>
   <form method="post" action="" class="product-form needs-validation" novalidate>
@@ -17,10 +26,22 @@
 		  <label for="description">Description</label>
 		  <textarea id="description" name="description" class="form-control" required></textarea>
 	  </div>
-	  <div class="form-group">
-		  <label for="type">Type</label>
-		  <input type="text" id="type" name="type" value="" class="form-control" required>
-	  </div>
+		<div class="form-group">
+			<label for="type">Type</label>
+			<select name="type" id="type" value="" class="form-control">
+				<?php foreach($categories as $key=>$value) { ?>
+					<option value="<?php echo $key;?>"><?php echo $key;?></option>
+				<?php } ?>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="subtype">Subtype</label>
+			<select name="subtype" id="subtype" value="" class="form-control">
+			<?php foreach($categories_copy[0] as $value) { ?>
+					<option value="<?php echo $value;?>"><?php echo $value;?></option>
+			<?php } ?>
+			</select>
+		</div>
 	  <div class="form-group">
 		  <label for="price">Price</label>
 		  <input type="text" id="price" name="price" value="" class="form-control" required>

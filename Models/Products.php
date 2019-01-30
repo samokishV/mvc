@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Lib\Route as Route;
+use App\Models\Images as Images;
 
 class Products
 {
@@ -11,21 +12,27 @@ class Products
 
     public function add()
     {
-        if(isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['price'], $_POST['code'], $_POST['in_stock'])) {
-        	$product = \Products::create(array('title' => $_POST['title'], 'description' => $_POST['description'], 'type' => $_POST['type'], 'price' => $_POST['price'], 'code' => $_POST['code'], 'in_stock' => $_POST['in_stock']));
+        if(isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['subtype'],
+            $_POST['price'], $_POST['code'], $_POST['in_stock'])) {
+        	$product = \Products::create(array('title' => $_POST['title'],
+                'description' => $_POST['description'], 'type' => $_POST['type'],
+                'subtype' => $_POST['subtype'], 'price' => $_POST['price'],
+                'code' => $_POST['code'], 'in_stock' => $_POST['in_stock']));
             if($product) return $product->id;
         }
     }
 
     public function edit($id)
     {
-        if(isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['price'], $_POST['code'], $_POST['in_stock'])) {
+        if(isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['subtype'],
+            $_POST['price'], $_POST['code'], $_POST['in_stock'])) {
 
         	$product = $this->get_product($id);
 			if(isset($product)) {
 			    $product->title = $_POST['title'];
 			    $product->description = $_POST['description'];
 			    $product->type = $_POST['type'];
+                $product->subtype = $_POST['subtype'];
 			    $product->price = $_POST['price'];
 			    $product->code = $_POST['code'];
 			    $product->in_stock = $_POST['in_stock'];
@@ -40,11 +47,33 @@ class Products
 
     public function delete($id)
     {
-        $product = $this->get_product($id);
-        if(isset($product)) {
-			$result = $product->delete($id);
-			return true;
-		}
+        if(self::productNotOrdered($id)) {
+		    $images = new Images();
+		    $images->deleteAll($id);
+            $product = $this->get_product($id);
+            if(isset($product)) {
+			    $result = $product->delete($id);
+			    return true;
+		    }
+        }
+    }
+
+    public static function productNotOrdered($id) {
+        $result = \ProductsOrder::find_by_products_id($id);
+        if(!$result) return true;
+        else return false;
+    }
+
+    public static function getCategoriesList()
+    {
+        $categories = new \Categories();
+        $result = $categories->find('all');
+
+        foreach($result as $category) {
+            $arr[$category->type][] = $category->subtype;
+        }
+
+        return $arr;
     }
 
     public function search($keyword)

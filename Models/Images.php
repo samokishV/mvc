@@ -29,7 +29,7 @@ class Images
         $image = $this->get_image($id);
 
         //drop image from folder
-        unlink(DIR.'/img/'.$image->src);
+        //unlink(DIR.'/img/'.$image->src);
 
         //drop image from DB
         if(isset($image)) $image->delete($id);

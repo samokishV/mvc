@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.25, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: samokish_db
 -- ------------------------------------------------------
--- Server version	5.7.24-0ubuntu0.18.04.1
+-- Server version	5.7.25-0ubuntu0.18.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -32,7 +32,7 @@ CREATE TABLE `buyers` (
   PRIMARY KEY (`id`),
   KEY `fk_buyers_1_idx` (`user_id`),
   CONSTRAINT `fk_buyers_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,8 +41,33 @@ CREATE TABLE `buyers` (
 
 LOCK TABLES `buyers` WRITE;
 /*!40000 ALTER TABLE `buyers` DISABLE KEYS */;
-INSERT INTO `buyers` VALUES (1,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(2,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(3,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(4,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(5,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(6,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(7,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(8,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev');
+INSERT INTO `buyers` VALUES (1,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(2,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(3,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(4,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(5,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(6,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(7,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(8,14,'VikaS','samokish.viktoria@gmail.com','+380980000000','Kiev'),(9,15,'admin','admin@mail.ru','1','1');
 /*!40000 ALTER TABLE `buyers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(45) DEFAULT NULL,
+  `subtype` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories`
+--
+
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'plants','krupnomery'),(2,'plants','decorative leafy'),(3,'plants',NULL),(4,'flowers','rose '),(5,'flowers','subtype1'),(6,'flowers','subtype2'),(7,'flowers',NULL);
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -59,7 +84,7 @@ CREATE TABLE `images` (
   PRIMARY KEY (`id`),
   KEY `images_ibfk_1` (`products_id`),
   CONSTRAINT `images_ibfk_1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +93,7 @@ CREATE TABLE `images` (
 
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT INTO `images` VALUES (1,'1.jpg',1),(2,'2.jpg',1),(3,'3.jpg',1),(4,'1.jpg',1),(5,'1.jpg',2),(6,'2.jpg',2),(7,'3.jpg',2),(8,'1.jpg',2),(9,'1.jpg',3),(10,'2.jpg',3),(11,'3.jpg',3),(12,'1.jpg',3),(13,'1.jpg',4),(14,'2.jpg',4),(15,'3.jpg',4),(16,'1.jpg',4),(17,'1.jpg',5),(18,'2.jpg',5),(19,'3.jpg',5),(20,'1.jpg',5),(21,'1.jpg',6),(22,'2.jpg',6),(23,'3.jpg',6),(24,'1.jpg',6),(25,'1.jpg',13),(26,'1.jpg',12),(27,'1.jpg',14);
+INSERT INTO `images` VALUES (1,'1.jpg',1),(2,'2.jpg',1),(3,'3.jpg',1),(4,'1.jpg',1),(5,'1.jpg',2),(6,'2.jpg',2),(7,'3.jpg',2),(8,'1.jpg',2),(9,'1.jpg',3),(10,'2.jpg',3),(11,'3.jpg',3),(12,'1.jpg',3),(13,'1.jpg',4),(14,'2.jpg',4),(15,'3.jpg',4),(16,'1.jpg',4),(17,'1.jpg',5),(18,'2.jpg',5),(19,'3.jpg',5),(20,'1.jpg',5),(21,'1.jpg',6),(22,'2.jpg',6),(23,'3.jpg',6),(24,'1.jpg',6),(25,'1.jpg',13),(26,'1.jpg',12),(30,'tqs8kbgs0e808gcgs4wcg84gk4sc448.jpeg',14),(31,'gcszuxnvw288wkgkw008ccwg8ok0ssc.jpeg',15);
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +112,7 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`),
   KEY `fk_orders_1_idx` (`buyer_id`),
   CONSTRAINT `fk_orders_1` FOREIGN KEY (`buyer_id`) REFERENCES `buyers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +121,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (10,6,3648,'2019-01-28 15:47:11'),(11,7,450,'2019-01-28 15:47:57'),(12,8,3369,'2019-01-28 15:48:36');
+INSERT INTO `orders` VALUES (10,6,3648,'2019-01-28 15:47:11'),(11,7,450,'2019-01-28 15:47:57'),(12,8,3369,'2019-01-28 15:48:36'),(13,9,0,'2019-01-30 19:19:07');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +144,7 @@ CREATE TABLE `products` (
   `updated_at` text,
   `subtype` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +153,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Ficus lyre','Ficus lyre is an evergreen tree. The leaves are large, leathery, with a waxy coating, wavy edges, widening towards the end, resembling a lyre or a violin.','plants',450,10368,26,'2019-01-09 13:18:04','2019-01-28 15:47:45','krupnomery'),(2,'Araucaria','Default description','plants',250,20568,0,'2019-01-09 13:18:04','2019-01-21 13:39:23','krupnomery'),(3,'Caryota mitis','Default description','plants',310,51423,-2,'2019-01-09 13:18:04','2019-01-22 15:36:33','krupnomery'),(4,'Codiaeum KL Mini Curl','Default description','plants',658,65874,0,'2019-01-09 13:18:04','2019-01-22 11:06:14','krupnomery'),(5,'Dracaena Anita vertak','Default description','plants',125,99999,0,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(6,'Dracaena Riki','Default description','plants',312,85469,0,'2019-01-09 13:18:04','2019-01-22 16:14:09','krupnomery'),(12,'Cordyline','Cordilina is a tree or shrub. Thick and strong roots in the cut have a white color. The shape of the leaf plates depends on the type of plant and can be lanceolate, xiphoid or linear. As a rule, the flowers are painted white or red, less often in lilac.','plants',480,52698,33,'2019-01-14 10:27:13','2019-01-28 15:48:24','decorative leafy'),(13,'Asystasia','Default description','plants',234,14789,20,'2019-01-14 10:34:10','2019-01-28 15:47:40','decorative leafy'),(14,'Rivina','Default description','plants',333,25897,19,NULL,'2019-01-28 15:48:32','decorative leafy');
+INSERT INTO `products` VALUES (1,'Ficus lyre','Ficus lyre is an evergreen tree. The leaves are large, leathery, with a waxy coating, wavy edges, widening towards the end, resembling a lyre or a violin.','plants',450,10368,27,'2019-01-09 13:18:04','2019-01-30 19:18:56','krupnomery'),(2,'Araucaria','Default description','plants',250,20568,0,'2019-01-09 13:18:04','2019-01-21 13:39:23','krupnomery'),(3,'Caryota mitis','Default description','plants',310,51423,-2,'2019-01-09 13:18:04','2019-01-22 15:36:33','krupnomery'),(4,'Codiaeum KL Mini Curl','Default description','plants',658,65874,0,'2019-01-09 13:18:04','2019-01-22 11:06:14','krupnomery'),(5,'Dracaena Anita vertak','Default description','plants',125,99999,0,'2019-01-09 13:18:04','2019-01-09 13:18:04','krupnomery'),(6,'Dracaena Riki','Default description','plants',312,85469,0,'2019-01-09 13:18:04','2019-01-22 16:14:09','krupnomery'),(12,'Cordyline','Cordilina is a tree or shrub. Thick and strong roots in the cut have a white color. The shape of the leaf plates depends on the type of plant and can be lanceolate, xiphoid or linear. As a rule, the flowers are painted white or red, less often in lilac.','plants',480,52698,37,'2019-01-14 10:27:13','2019-01-30 19:18:57','decorative leafy'),(13,'Asystasia','Default description','plants',234,14789,20,'2019-01-14 10:34:10','2019-01-28 15:47:40','decorative leafy'),(14,'Rivina','Default description','plants',333,25897,22,NULL,'2019-01-30 19:18:58','decorative leafy'),(15,'test','1','flowers',121,12356,2,'2019-01-30 17:18:05','2019-01-30 19:39:29','subtype2');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,4 +228,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-28 15:55:48
+-- Dump completed on 2019-01-30 19:48:01

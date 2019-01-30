@@ -1,3 +1,9 @@
+<script><?php
+	use App\Models\Products as Products;
+	$categories = Products::getCategoriesList();
+	echo 'categories = ' . json_encode($categories) . ';';
+?></script>
+<script src="/js/selectTypeCategory.js"> </script>
 <div class="container main">
   <p><h3>Edit product</h3></p>
   <form method="post" action="" class="product-form needs-validation" novalidate>
@@ -27,8 +33,27 @@
 	  </div>
 	  <div class="form-group">
 		  <label for="type">Type</label>
-		  <input type="text" id="type" name="type" value="<?=$data->type?>" class="form-control" required>
+			<select name="type" id="type" value="<?=$data->type?>" class="form-control">
+				<option value="<?=$data->type?>"><?=$data->type?></option>
+				<?php foreach($categories as $key=>$value) { ?>
+					<?php if($key!=$data->type) { ?>
+						<option value="<?php echo $key;?>"><?php echo $key;?></option>
+					<?php } ?>
+				<?php } ?>
+			</select>
 	  </div>
+		<div class="form-group">
+			<label for="subtype">Subtype</label>
+			<select name="subtype" id="subtype" value="<?=$data->subtype?>" class="form-control">
+				<option value="<?=$data->subtype?>"><?=$data->subtype?></option>
+				<?php $current_type = $data->type; ?>
+				<?php foreach($categories[$current_type] as $value) { ?>
+					<?php	if($value!=$data->subtype) { ?>
+						<option value="<?php echo $value;?>"><?php echo $value;?></option>
+					<?php } ?>
+				<?php } ?>
+			</select>
+		</div>
 	  <div class="form-group">
 		  <label for="price">Price</label>
 		  <input type="text" id="price" name="price" value="<?=$data->price?>" class="form-control" required>

@@ -7,13 +7,17 @@
  */
 namespace App\Lib;
 
+use App\Models\Products as Products;
+
 class Route
 {
     protected $controller = "Main";
     protected $action = "index";
     protected static $params = "1";
-    protected $types = ['plants'];
-    protected $subtypes = ['krupnomery', 'decorative leafy'];
+    // protected $types = ['plants'];
+    //protected $subtypes = ['krupnomery', 'decorative leafy'];
+    protected $types;
+    protected $subtypes;
     protected static $type;
     protected static $subtype;
     protected static $name;
@@ -75,6 +79,13 @@ class Route
     public function start()
     {
         $routes = explode('/', $_SERVER['REQUEST_URI']);
+        $categories = Products::getCategoriesList();
+        $this->types = array_keys($categories);
+        $subtypes = array();
+        foreach($categories as $subArr){
+            $subtypes = array_merge($subtypes,array_values($subArr));
+        }
+        $this->subtypes = $subtypes;
 
         if (!empty($routes[1])) {
             if(in_array($routes[1], $this->types)) {

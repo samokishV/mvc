@@ -18,11 +18,11 @@
     <div class="container main">
       <div class="row">
         <div class="col-sm card m-2" width="20rem;">
-					<div class="list-group" style="padding-top:20px;">
-					  <a href='/plants/' class="list-group-item list-group-item-action">All plants</a>
-					  <a href='/plants/decorative-leafy' class="list-group-item list-group-item-action">Decorative leafy</a>
-					  <a href='/plants/krupnomery' class="list-group-item list-group-item-action">Krupnomery</a>
-					</div>
+          <div class="list-group" style="padding-top:20px;">
+            <a href='/plants/' class="list-group-item list-group-item-action">All plants</a>
+            <a href='/plants/decorative-leafy' class="list-group-item list-group-item-action">Decorative leafy</a>
+            <a href='/plants/krupnomery' class="list-group-item list-group-item-action">Krupnomery</a>
+          </div>
           <div class="card-body">
             <form method="post" action="" id="search">
               <div class="search-options-block">
@@ -45,7 +45,7 @@
                   <h5 class="card-title">Price < <span id="slidernumber"> </span></h5>
                 </label>
                 <input type="range" name="price" class="form-control-range" id="formControlRange" min=0 max="1000" step="50"
-                  value="<?=$_POST['price']?>">
+                  value="<? if(isset($_POST['price'])) echo $_POST['price']; ?>">
               </div>
               <input type="submit" class="btn btn-success btn-lg w-100" value="Search">
             </div>
@@ -79,6 +79,9 @@
                       <div class="alert alert-danger" role="alert">
                           goods ended
                       </div>
+                    <?php } ?>
+                    <?php if(App\Models\User::isAdmin()) { ?>
+                      <p><a href="/admin/edit/<?=$i->id;?>">Edit good</a></p>
                     <?php } ?>
                 </div>
               </form>

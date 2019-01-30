@@ -60,6 +60,9 @@
 									goods ended
 								</div>
 							<?php } ?>
+              <?php if(App\Models\User::isAdmin()) { ?>
+                <p><a href="/admin/edit/<?=$data->id;?>">Edit good</a></p>
+              <?php } ?>
               </form>  
                 <div class="col-sm-8">
                 
