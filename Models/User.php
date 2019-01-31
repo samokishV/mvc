@@ -17,37 +17,37 @@ class User
 {
     public static function isAdmin()
     {
-        if(Session::get('login') == 'admin') {
+        if (Session::get('email') == 'admin@mail.ru') {
             return true;
         } else {
             return false;
         }
     }
 
-    public function create($name, $email, $password) 
+    public function create($name, $email, $password)
     {
-       if(Validation::emailNotExists($email)) {
+        if (Validation::emailNotExists($email)) {
             $user = Users::create(array('email' => $email, 'password' => hash('md5', $password), 'name' => $name, 'hash' => hash('md5', $email)));
             $link = 'localhost/user/registration_approve/'.hash('md5', $email);
             $mail = new Sender();
-            $mail->send_link($name, $email, $link);
-			return true;         
+            $mail->sendLink($name, $email, $link);
+            return true;
+        } else {
+            Session::setFlash('This email is already registered.', 'danger');
+            return false;
         }
-		else {
-			Session::setFlash('This email is already registered.', 'danger');
-			return false;
-		}
     }
 
-    public function confirmRegistration($hash) 
+    public function confirmRegistration($hash)
     {
         $user = Users::find_by_hash($hash);
-        if(isset($user)) {
+        if (isset($user)) {
             $user->confirm = 1;
             $user->save();
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
 
     public function getByEmail($email)
@@ -58,10 +58,11 @@ class User
 
     public static function getValue($user, $field)
     {
-        if(isset($user->$field)) {
+        if (isset($user->$field)) {
             return $user->$field;
+        } else {
+            return "";
         }
-        else return "";
     }
 
     public function changeValue($field, $value, $email)
@@ -74,40 +75,41 @@ class User
 
     public function passwordRecovery($email)
     {
-        if(Validation::emailExists($email)) {
+        if (Validation::emailExists($email)) {
             $user = Users::find_by_email($email);
-			$name = $user->name;
+            $name = $user->name;
             $password = random_int(100000, 999999);
             $user->password = hash('md5', $password);
             $user->save();
-			$mail = new Sender();
-			$mail->send_password($name, $email, $password);
+            $mail = new Sender();
+            $mail->sendPassword($name, $email, $password);
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
 
     public function changePassword($email, $oldPassword, $newPassword, $confirmPassword)
     {
-        if(Validation::checkPasswordChange($oldPassword, $newPassword, $confirmPassword)) {
+        if (Validation::checkPasswordChange($oldPassword, $newPassword, $confirmPassword)) {
             $user = Users::find_by_email($email);
             $passwordHash = hash('md5', $newPassword);
             $user->password = $passwordHash;
             $user->save();
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
 
-    public function changeEmail($postEmail, $sessionEmail) 
+    public function changeEmail($postEmail, $sessionEmail)
     {
-        if(!Validation::emailExists($postEmail) || (Validation::emailExists($postEmail) && Validation::emailsEqual($postEmail, $sessionEmail))) {
+        if (!Validation::emailExists($postEmail) || (Validation::emailExists($postEmail) && Validation::emailsEqual($postEmail, $sessionEmail))) {
             $user = Users::find_by_email($sessionEmail);
             $user->email = $postEmail;
             $user->save();
             return true;
-        }
-        else {
+        } else {
             echo "This email adress is already used.";
             return false;
         }

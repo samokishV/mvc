@@ -18,8 +18,3 @@
     $config['home_url'] = 'http://localhost/';
 
     return $config;
-
-
-
-
-

@@ -6,8 +6,8 @@ use App\ActiveRecord\Users as Users;
 use App\Models\User as User;
 use App\Lib\Cookie as Cookie;
 
-class Authorization {
-
+class Authorization
+{
     public function login($email, $password)
     {
         if (isset($email) && isset($password)) {
@@ -19,11 +19,11 @@ class Authorization {
                 $user = $user->getByEmail($email);
                 $password = $user->password;
                 $login = $user->name;
-				$email = $user->email;
+                $email = $user->email;
 
                 if ($password == hash('md5', $_POST['password'])) {
                     Session::set('login', $login);
-					Session::set('email', $email);
+                    Session::set('email', $email);
                     Cookie::set('login', $login);
                     Cookie::set('email', $email);
                     Session::setFlash('Authorization completed successfully.', 'success');
@@ -36,27 +36,34 @@ class Authorization {
         }
     }
 
-    public static function isAuth() {
-            if(Session::get('login') && Session::get('email')) return true;
-            else {
-                if(Cookie::get('login') && Cookie::get('email')) {
-                    $login = Cookie::get('login');
-                    $email = Cookie::get('email');
-                    Session::set('login', $login);
-					Session::set('email', $email);
-                    return true;
-                }
-                else return false; 
+    public static function isAuth()
+    {
+        if (Session::get('login') && Session::get('email')) {
+            return true;
+        } else {
+            if (Cookie::get('login') && Cookie::get('email')) {
+                $login = Cookie::get('login');
+                $email = Cookie::get('email');
+                Session::set('login', $login);
+                Session::set('email', $email);
+                return true;
+            } else {
+                return false;
             }
+        }
     }
 
-    public static function getlogin() {
-        if(self::isAuth()) return Session::get('login');
+    public static function getlogin()
+    {
+        if (self::isAuth()) {
+            return Session::get('login');
+        }
         return null;
     }
 
-    public function logout() {
-        if(self::isAuth()) {
+    public function logout()
+    {
+        if (self::isAuth()) {
             Session::delete('login');
             Session::delete('email');
             Cookie::deleteAll();

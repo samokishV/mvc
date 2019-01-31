@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -8,12 +8,12 @@ use App\Models\Cart as Cart;
 
 class Order
 {
-	public function getByUserId($id)
-	{
-		$buyer = \Buyers::find('all', array('select' => 'id'), array('conditions' => "user_id = $id"));
+    public function getByUserId($id)
+    {
+        $buyer = \Buyers::find('all', array('select' => 'id'), array('conditions' => "user_id = $id"));
 
-        if($buyer) {
-            foreach($buyer as $info) {
+        if ($buyer) {
+            foreach ($buyer as $info) {
                 $buyer_id[] = $info->id;
             }
             $join1 = 'inner JOIN orders o ON(po.orders_id = o.id)';
@@ -21,19 +21,21 @@ class Order
             $orders = \ProductsOrder::find('all', array('joins' => array($join1, $join2), 'select' => 'o.id, o.date, p.title, po.total, po.qt', 'from' => 'products_orders as po', 'conditions' => array('o.buyer_id in (?)', $buyer_id)));
             return $orders;
         }
-	}
+    }
 
     public function create($name, $email, $phone, $adress, $sessionEmail)
     {
-        if(Authorization::isAuth()) {
+        if (Authorization::isAuth()) {
             $user = new User();
             $user = $user->getByEmail($sessionEmail);
-            $user_id = $user->id;     
-        } else $user_id = null;
+            $user_id = $user->id;
+        } else {
+            $user_id = null;
+        }
 
         $buyer = \Buyers::create(array('name' => $name, 'email' => $email,
             'phone' => $phone, 'address' => $adress, 'user_id' => $user_id
-        )); 
+        ));
         $buyer_id = $buyer->id;
 
         $cart = new Cart();

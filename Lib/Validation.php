@@ -19,17 +19,19 @@ class Validation
     {
         $passwordExist = Validation::passwordExists($oldPassword);
         $isEqual = Validation::passwordsEqual($password1, $password2);
-        if($passwordExist && $isEqual) {
+        if ($passwordExist && $isEqual) {
             echo "Passwords successfully changed!";
             return true;
+        } else {
+            return false;
         }
-        else return false;
     }
 
     public static function passwordsEqual($password1, $password2)
     {
-        if($password1 == $password2) return true;
-        else {
+        if ($password1 == $password2) {
+            return true;
+        } else {
             echo "Passwords aren't equal!";
             return false;
         }
@@ -41,8 +43,9 @@ class Validation
         $user = new User();
         $data = $user->getByEmail($name);
         $password = $data->password;
-        if($password == hash('md5', $oldPassword)) return true;
-        else {
+        if ($password == hash('md5', $oldPassword)) {
+            return true;
+        } else {
             echo "Password is incorrect!";
             return false;
         }
@@ -50,22 +53,29 @@ class Validation
 
     public static function emailsEqual($email1, $email2)
     {
-        if($email1 == $email2) return true;
-        else return false;
+        if ($email1 == $email2) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static function emailNotExists($email)
     {
         $user = Users::find_by_email($email);
-        if(!$user) return true;
-        else return false;
+        if (!$user) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public static function emailExists($email) 
+    public static function emailExists($email)
     {
         $user = Users::find_by_email($email);
-        if($user) return true;
-        else {
+        if ($user) {
+            return true;
+        } else {
             echo "Incorrect email. Please try again.";
             return false;
         }

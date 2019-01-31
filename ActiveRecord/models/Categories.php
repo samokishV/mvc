@@ -2,5 +2,4 @@
 
 class Categories extends \ActiveRecord\Model
 {
-
 }

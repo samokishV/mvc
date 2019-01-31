@@ -1,11 +1,14 @@
 <div class="cover">
     <div class="inner-cover">
         <?php use App\Lib\Session as Session;
-        if(Session::hasFlash()) { ?>
+
+if (Session::hasFlash()) {
+    ?>
             <div class="alert alert-<?php Session::flashType(); ?>" role="alert">
                 <?php Session::flash(); ?>
             </div>
-        <?php } ?>
+        <?php
+} ?>
         <form method="post" action="" class="registration-form needs-validation" novalidate>
             <h5 class="text-uppercase bold"> Authorization </h5>
             <div class="form-group">

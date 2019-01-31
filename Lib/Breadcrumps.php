@@ -4,23 +4,23 @@ namespace App\Lib;
 
 use App\Lib\Route as Route;
 
-class Breadcrumps 
+class Breadcrumps
 {
     public static function getBreadcrumps()
-    {    
+    {
         $breadcrumps[] = 'main';
-        if(Route::hasType()) {
+        if (Route::hasType()) {
             $type = Route::getType();
             $breadcrumps[] = $type;
         } else {
             $type = 'products';
             $breadcrumps[] = $type;
         }
-        if(Route::hasSubtype()) {
+        if (Route::hasSubtype()) {
             $subtype = Route::getSubtype();
             $breadcrumps[] = $subtype;
         }
-        if(Route::hasName()) {
+        if (Route::hasName()) {
             $name = Route::getName();
             $breadcrumps[] = $name;
         }

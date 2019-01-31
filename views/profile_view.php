@@ -1,4 +1,6 @@
-<?php use App\Models\User as User; ?>
+<?php use App\Models\User as User;
+
+?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/main/">Home page</a></li>
@@ -24,22 +26,18 @@
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" name="name" value="<?=$data->name;?>" class="form-control" required>
-                    <div class="invalid-feedback">Please fill this field</div>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" name="email" value="<?=$data->email;?>" class="form-control" required>
-                    <div class="invalid-feedback">Please fill this field</div>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone</label>
                     <input type="tel" name="phone" value="<?=$data->phone;?>" class="form-control" required>
-                    <div class="invalid-feedback">Please fill this field</div>
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
                     <input type="text" name="address" value="<?=$data->address;?>" class="form-control" required>
-                    <div class="invalid-feedback">Please fill this field</div>
                 </div>
                 <input type="submit" class="btn btn-success btn-lg w-100" value="Save">
             </form>            
@@ -48,17 +46,14 @@
                 <div class="form-group">
                     <label for="old-password">Password</label>
                     <input type="password" id="old-password" name="old-password" class="form-control" required>
-                    <div class="invalid-feedback">Please fill this field</div>
                 </div>
                 <div class="form-group">
                     <label for="new-password">New password</label>
                     <input type="password" id="new-password" name="new-password" class="form-control" required>
-                    <div class="invalid-feedback">Please fill this field</div>
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm password</label>
                     <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
-                    <div class="invalid-feedback">Please fill this field</div>
                 </div>
                 <input type="submit" class="btn btn-success btn-lg w-100" value="Save">
                 <p><a href="#" id="password-recovery">Forgot password? </a></p>
@@ -68,9 +63,8 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" class="form-control" value="<?=$data->email;?>" readonly>
-                    <div class="invalid-feedback">Please fill this field</div>
                 </div>
-                <input type="submit" class="btn btn-success btn-lg w-100" value="Submit">
+                <input type="submit" class="btn btn-success btn-lg w-100" value="Submit" required>
             </form>
         </div>
         <div class="col-sm">

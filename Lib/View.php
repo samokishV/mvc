@@ -10,8 +10,8 @@ namespace App\Lib;
 
 class View
 {
-    public function generate($content_view, $template_view, $data = null)
+    public function generate($contentView, $templateView, $data = null)
     {
-        include 'views/'.$template_view;
+        include 'views/'.$templateView;
     }
 }

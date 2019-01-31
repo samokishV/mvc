@@ -7,8 +7,8 @@
  */
 namespace App\Lib;
 
-class Controller {
-
+class Controller
+{
     public $model;
     public $view;
 
@@ -17,7 +17,7 @@ class Controller {
         $this->view = new View();
     }
 
-    public function action_index()
+    public function index()
     {
     }
 }

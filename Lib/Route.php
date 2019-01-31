@@ -34,7 +34,7 @@ class Route
 
     public static function getParams()
     {
-       return self::$params;
+        return self::$params;
     }
 
     public static function getType()
@@ -52,28 +52,31 @@ class Route
         return self::$name;
     }
 
-    public static function hasType() 
+    public static function hasType()
     {
-        if(self::getType()) 
+        if (self::getType()) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
-    public static function hasSubtype() 
+    public static function hasSubtype()
     {
-       if(self::getSubtype()) 
+        if (self::getSubtype()) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
-    public static function hasName() 
+    public static function hasName()
     {
-       if(self::getName()) 
+        if (self::getName()) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     public function start()
@@ -82,26 +85,31 @@ class Route
         $categories = Products::getCategoriesList();
         $this->types = array_keys($categories);
         $subtypes = array();
-        foreach($categories as $subArr){
-            $subtypes = array_merge($subtypes,array_values($subArr));
+        foreach ($categories as $subArr) {
+            $subtypes = array_merge($subtypes, array_values($subArr));
         }
         $this->subtypes = $subtypes;
 
         if (!empty($routes[1])) {
-            if(in_array($routes[1], $this->types)) {
+            if (in_array($routes[1], $this->types)) {
                 $this->controller = "Products";
                 $this->action = "type_index";
                 self::$type = $routes[1];
                 array_shift($routes);
-                if(!empty($routes[1])) $routes[1] = str_replace('-', ' ', $routes[1]);
-                if(!empty($routes[1]) && in_array($routes[1], $this->subtypes)) {
-                   $this->action = "subtype_index";
-                   self::$subtype = $routes[1];
-                   array_shift($routes); 
+                if (!empty($routes[1])) {
+                    $routes[1] = str_replace('-', ' ', $routes[1]);
                 }
-                if(!empty($routes[1])) $routes[3] = $routes[1];
+                if (!empty($routes[1]) && in_array($routes[1], $this->subtypes)) {
+                    $this->action = "subtype_index";
+                    self::$subtype = $routes[1];
+                    array_shift($routes);
+                }
+                if (!empty($routes[1])) {
+                    $routes[3] = $routes[1];
+                }
+            } else {
+                $this->controller = ucfirst($routes[1]);
             }
-            else $this->controller = ucfirst($routes[1]);
         }
 
         if (!empty($routes[2])) {
@@ -110,11 +118,10 @@ class Route
 
         if (!empty($routes[3])) {
             self::$params = $routes[3];
-        }
-	    else {
+        } else {
             self::$params = "1";
-	    }
+        }
 
-	    return true;
+        return true;
     }
 }

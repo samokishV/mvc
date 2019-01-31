@@ -12,13 +12,13 @@ class Cart
 
     public function __construct()
     {
-		$this->products = Cookie::get('products') == null ? array() : Cookie::get('products');
+        $this->products = Cookie::get('products') == null ? array() : Cookie::get('products');
     }
 
     public function getProducts()
     {
         $totalPrice = 0;
-        foreach($this->products as $index=>$qt) {
+        foreach ($this->products as $index=>$qt) {
             $product = \Products::find_by_id($index);
             $price = $product->price;
             $total = $qt*$price;
@@ -28,15 +28,15 @@ class Cart
         return $this->cart;
     }
 
-    public function countProducts() 
+    public function countProducts()
     {
-		return count($this->products);
+        return count($this->products);
     }
 
     public function getTotalPrice()
     {
         $totalPrice = 0;
-        foreach($this->products as $index=>$qt) {
+        foreach ($this->products as $index=>$qt) {
             $product = \Products::find_by_id($index);
             $price = $product->price;
             $total = $qt*$price;
@@ -50,24 +50,24 @@ class Cart
         $id = (int)$id;
 
         if (!isset($this->products[$id])) {
-			Cookie::set("products[$id]", $qt);
-			$this->products = Cookie::get('products');
-			return true;
+            Cookie::set("products[$id]", $qt);
+            $this->products = Cookie::get('products');
+            return true;
         } else {
-			return false;
-		}
+            return false;
+        }
     }
 
     public function deleteProduct($id)
     {
-	    $id = (int)$id;
-	    $result = Cookie::delete("products[$id]", $this->products[$id]);
-		$this->products = Cookie::get('products');
-		return $result;
+        $id = (int)$id;
+        $result = Cookie::delete("products[$id]", $this->products[$id]);
+        $this->products = Cookie::get('products');
+        return $result;
     }
 
-	public function editProduct($id, $qt)
-	{
-		Cookie::set("products[$id]", $qt);
-	}
+    public function editProduct($id, $qt)
+    {
+        Cookie::set("products[$id]", $qt);
+    }
 }

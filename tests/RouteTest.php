@@ -46,7 +46,7 @@ class RouteTest extends TestCase
         $end = $this->route->start();
         $result = Route::getParams();
         $this->assertEquals($expected, $result);
-    }    
+    }
 
     public function multiProvider():array
     {

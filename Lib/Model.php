@@ -9,7 +9,7 @@ namespace App\Lib;
 
 class Model
 {
-    public function get_data()
+    public function getData()
     {
     }
 }

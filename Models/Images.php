@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-class Images 
+class Images
 {
-    public function get_image($id)
+    public function getImage($id)
     {
-	    $image = \Images::find_by_id($id);
-		return $image;
+        $image = \Images::find_by_id($id);
+        return $image;
     }
 
     public function deleteAll($id)
@@ -17,27 +17,33 @@ class Images
         foreach ($images as $image) {
             //drop image from folder
             $file = DIR.'/img/'.$image->src;
-            if(file_exists($file)) unlink($file);
+            if (file_exists($file)) {
+                unlink($file);
+            }
 
             //drop image from DB
-            if(isset($image)) $image->delete();
+            if (isset($image)) {
+                $image->delete();
+            }
         }
     }
 
     public function delete($id)
     {
-        $image = $this->get_image($id);
+        $image = $this->getImage($id);
 
         //drop image from folder
         //unlink(DIR.'/img/'.$image->src);
 
         //drop image from DB
-        if(isset($image)) $image->delete($id);
+        if (isset($image)) {
+            $image->delete($id);
+        }
     }
 
     public function add($images, $id)
     {
-        foreach($images as $key=>$uri) {
+        foreach ($images as $key=>$uri) {
             $upload_dir = DIR.'/img/';
 
             // get file type
@@ -45,7 +51,7 @@ class Images
             $file_type = $match[1];
 
             //get image data
-            $img = str_replace('data:image/'.$file_type.';base64,', '', $uri);            
+            $img = str_replace('data:image/'.$file_type.';base64,', '', $uri);
             $img = str_replace(' ', '+', $img);
             $data = base64_decode($img);
 
@@ -58,7 +64,7 @@ class Images
 
             //write image to DB
             $src = $file_name.".".$file_type;
-        	$product = \Images::create(array('src' => $src, 'products_id' => $id));
+            $product = \Images::create(array('src' => $src, 'products_id' => $id));
         }
     }
 }

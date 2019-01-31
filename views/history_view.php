@@ -22,17 +22,23 @@
           </tr>
         </thead>
         <tbody>
-        <?php if(isset($data)) { ?>
-          <?php foreach($data as $d) { ?>
+        <?php if (isset($data)) {
+    ?>
+          <?php foreach ($data as $d) {
+        ?>
             <tr>
-              <th scope="row"><?=$d->id;?></th>
-              <td><?=date("d:m:Y H:i:s", strtotime($d->date));?></td>
-              <td><?=$d->title;?></td>
-              <td><?=$d->total;?></td>
-              <td><?=$d->qt;?></td>
+              <th scope="row"><?=$d->id; ?></th>
+              <td><?=date("d:m:Y H:i:s", strtotime($d->date)); ?></td>
+              <td><?=$d->title; ?></td>
+              <td><?=$d->total; ?></td>
+              <td><?=$d->qt; ?></td>
             </tr>
-          <?php }  ?>
-        <?php } else echo "<p>You haven't made a single order.</p>"; ?>
+          <?php
+    } ?>
+        <?php
+} else {
+        echo "<p>You haven't made a single order.</p>";
+    } ?>
         </tbody>
         <tfoot>
         </tfoot>

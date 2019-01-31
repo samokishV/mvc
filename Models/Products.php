@@ -8,60 +8,66 @@ use App\Models\Images as Images;
 class Products
 {
     public static $products;
-    public static $number_of_page;
+    public static $numberOfPage;
 
     public function add()
     {
-        if(isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['subtype'],
+        if (isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['subtype'],
             $_POST['price'], $_POST['code'], $_POST['in_stock'])) {
-        	$product = \Products::create(array('title' => $_POST['title'],
+            $product = \Products::create(array('title' => $_POST['title'],
                 'description' => $_POST['description'], 'type' => $_POST['type'],
                 'subtype' => $_POST['subtype'], 'price' => $_POST['price'],
                 'code' => $_POST['code'], 'in_stock' => $_POST['in_stock']));
-            if($product) return $product->id;
+            if ($product) {
+                return $product->id;
+            }
         }
     }
 
     public function edit($id)
     {
-        if(isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['subtype'],
+        if (isset($_POST['title'], $_POST['description'], $_POST['type'], $_POST['subtype'],
             $_POST['price'], $_POST['code'], $_POST['in_stock'])) {
-
-        	$product = $this->get_product($id);
-			if(isset($product)) {
-			    $product->title = $_POST['title'];
-			    $product->description = $_POST['description'];
-			    $product->type = $_POST['type'];
+            $product = $this->getProduct($id);
+            if (isset($product)) {
+                $product->title = $_POST['title'];
+                $product->description = $_POST['description'];
+                $product->type = $_POST['type'];
                 $product->subtype = $_POST['subtype'];
-			    $product->price = $_POST['price'];
-			    $product->code = $_POST['code'];
-			    $product->in_stock = $_POST['in_stock'];
-			    $product->save();
-			    return true;
-				
-			}
-			else return false;
+                $product->price = $_POST['price'];
+                $product->code = $_POST['code'];
+                $product->in_stock = $_POST['in_stock'];
+                $product->save();
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
-        else return false;
     }
 
     public function delete($id)
     {
-        if(self::productNotOrdered($id)) {
-		    $images = new Images();
-		    $images->deleteAll($id);
-            $product = $this->get_product($id);
-            if(isset($product)) {
-			    $result = $product->delete($id);
-			    return true;
-		    }
+        if (self::productNotOrdered($id)) {
+            $images = new Images();
+            $images->deleteAll($id);
+            $product = $this->getProduct($id);
+            if (isset($product)) {
+                $result = $product->delete($id);
+                return true;
+            }
         }
     }
 
-    public static function productNotOrdered($id) {
+    public static function productNotOrdered($id)
+    {
         $result = \ProductsOrder::find_by_products_id($id);
-        if(!$result) return true;
-        else return false;
+        if (!$result) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static function getCategoriesList()
@@ -69,7 +75,7 @@ class Products
         $categories = new \Categories();
         $result = $categories->find('all');
 
-        foreach($result as $category) {
+        foreach ($result as $category) {
             $arr[$category->type][] = $category->subtype;
         }
 
@@ -78,92 +84,92 @@ class Products
 
     public function search($keyword)
     {
-	    $products = \Products::find('all', array('conditions' => "title LIKE '%".$keyword."%' OR 
+        $products = \Products::find('all', array('conditions' => "title LIKE '%".$keyword."%' OR 
         type LIKE '%".$keyword."%' OR subtype LIKE '%".$keyword."%'"));
-		return $products;	
+        return $products;
     }
 
     public static function setNumberOfPage($number)
     {
-        self::$number_of_page = $number;
+        self::$numberOfPage = $number;
     }
 
     public static function getNumberOfPage()
     {
-        return self::$number_of_page;
+        return self::$numberOfPage;
     }
 
-    public function uniq_search($product_condition, $page)
+    public function uniq_search($productCondition, $page)
     {
-        $price_condition = "";
-        if(isset($_POST['price'])) {
+        $priceCondition = "";
+        if (isset($_POST['price'])) {
             $price = $_POST['price'];
-            $price_condition = " AND price < $price ";
+            $priceCondition = " AND price < $price ";
         }
-        $in_stock_condition = "";
-        if(isset($_POST['in_stock']) && $_POST['in_stock']=="Yes") {
-            $in_stock_condition = " AND in_stock > 0 ";
-        } 
-	    if(isset($_POST['not_in_stock']) && $_POST['not_in_stock']=="No") {
-            $in_stock_condition = " AND in_stock <= 0 ";
+        $inStockCondition = "";
+        if (isset($_POST['in_stock']) && $_POST['in_stock']=="Yes") {
+            $inStockCondition = " AND in_stock > 0 ";
         }
-        if(isset($_POST['in_stock']) && isset($_POST['not_in_stock'])) {
-            $in_stock_condition = "";
+        if (isset($_POST['not_in_stock']) && $_POST['not_in_stock']=="No") {
+            $inStockCondition = " AND in_stock <= 0 ";
         }
-        $products_number = count(\Products::find('all', array('conditions' => $product_condition." ".$price_condition." ".$in_stock_condition)));
-        $products_on_page = 3;
-        $number_of_pages = ceil($products_number/$products_on_page);
-        self::setNumberOfPage($number_of_pages);
-        $start = $products_on_page*($page-1);
-	    $products = \Products::find('all', array('conditions' => $product_condition." ".$price_condition." ".$in_stock_condition, 'limit' => $products_on_page, 'offset' => $start));
+        if (isset($_POST['in_stock']) && isset($_POST['not_in_stock'])) {
+            $inStockCondition = "";
+        }
+        $productsNumber = count(\Products::find('all', array('conditions' => $productCondition." ".$priceCondition." ".$in_stock_condition)));
+        $productsOnPage = 3;
+        $numberOfPages = ceil($productsNumber/$productsOnPage);
+        self::setNumberOfPage($numberOfPages);
+        $start = $productsOnPage*($page-1);
+        $products = \Products::find('all', array('conditions' => $productCondition." ".$priceCondition." ".$in_stock_condition, 'limit' => $productsOnPage, 'offset' => $start));
         return $products;
     }
 
-    public function get_list()
+    public function getList()
     {
         $products = \Products::find('all');
         return $products;
     }
 
-    public function get_by_type($page)
+    public function getByType($page)
     {
         $page = (int) $page;
         $type = Route::getType();
-        $product_condition = "type LIKE '".$type."'";
+        $productCondition = "type LIKE '".$type."'";
         $product = new Products();
-        $products = $product->uniq_search($product_condition, $page);
-		return $products;	
+        $products = $product->uniqSearch($productCondition, $page);
+        return $products;
     }
 
-    public function get_by_subtype($page)
+    public function getBySubtype($page)
     {
         $page = (int) $page;
         $subtype = Route::getSubtype();
-        $product_condition = "subtype LIKE '".$subtype."'";
+        $productCondition = "subtype LIKE '".$subtype."'";
         $product = new Products();
-        $products = $product->uniq_search($product_condition, $page);
-		return $products;	
+        $products = $product->uniqSearch($productCondition, $page);
+        return $products;
     }
 
-	public function get_product($id)
-	{	
-	    $product = \Products::find_by_id($id);
-		return $product;		
-	}
+    public function getProduct($id)
+    {
+        $product = \Products::find_by_id($id);
+        return $product;
+    }
 
-	public function decrease($id, $qt)
-	{
-		$product = $this->get_product($id);;
-		$number = $product->in_stock - $qt;
-		$product->in_stock = $number;
-		$product->save();
-	}
+    public function decrease($id, $qt)
+    {
+        $product = $this->getProduct($id);
+        $number = $product->in_stock - $qt;
+        $product->in_stock = $number;
+        $product->save();
+    }
 
-	public function increase($id, $qt) 
-	{
-		$product = $this->get_product($id);;
-		$number = $product->in_stock + $qt;
-		$product->in_stock = $number;
-		$product->save();
-	}    
+    public function increase($id, $qt)
+    {
+        $product = $this->getProduct($id);
+        $number = $product->in_stock + $qt;
+        $product->in_stock = $number;
+        $product->save();
+    }
 }
