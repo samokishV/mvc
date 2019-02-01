@@ -1,6 +1,6 @@
 <?php
 
-namespace  App\ActiveRecord;
+//namespace  App\ActiveRecord;
 
 require "connection.php";
 

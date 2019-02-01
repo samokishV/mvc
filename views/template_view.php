@@ -57,7 +57,7 @@
             </ul>
         </div>
     </nav>
-	<?php include 'views/'.$content_view; ?>
+	<?php include 'views/'.$contentView; ?>
     <footer class="page-footer bg-primary font-small pt-4 footer">
         <div class="container-fluid text-center text-md-left text-white">
             <div class="row">

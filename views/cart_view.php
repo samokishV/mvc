@@ -50,7 +50,7 @@
 } ?>
   <div class="row">
     <div class="w-50">
-      <a href="/products/" class="cart-big-txt"><i class="fas fa-arrow-left"></i>&nbsp;Back to shopping</a>
+      <a href="/plants/" class="cart-big-txt"><i class="fas fa-arrow-left"></i>&nbsp;Back to shopping</a>
     </div>
     <div class="w-50">
       <p class="text-right cart-big-txt">

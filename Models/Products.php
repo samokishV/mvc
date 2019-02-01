@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Lib\Route as Route;
 use App\Models\Images as Images;
+use App\ActiveRecord\Categories as Categories;
 
 class Products
 {
@@ -72,7 +73,7 @@ class Products
 
     public static function getCategoriesList()
     {
-        $categories = new \Categories();
+        $categories = new Categories();
         $result = $categories->find('all');
 
         foreach ($result as $category) {
@@ -99,7 +100,7 @@ class Products
         return self::$numberOfPage;
     }
 
-    public function uniq_search($productCondition, $page)
+    public function uniqSearch($productCondition, $page)
     {
         $priceCondition = "";
         if (isset($_POST['price'])) {
@@ -111,17 +112,17 @@ class Products
             $inStockCondition = " AND in_stock > 0 ";
         }
         if (isset($_POST['not_in_stock']) && $_POST['not_in_stock']=="No") {
-            $inStockCondition = " AND in_stock <= 0 ";
+           $inStockCondition = " AND in_stock <= 0 ";
         }
         if (isset($_POST['in_stock']) && isset($_POST['not_in_stock'])) {
             $inStockCondition = "";
         }
-        $productsNumber = count(\Products::find('all', array('conditions' => $productCondition." ".$priceCondition." ".$in_stock_condition)));
+        $productsNumber = count(\Products::find('all', array('conditions' => $productCondition." ".$priceCondition." ".$inStockCondition)));
         $productsOnPage = 3;
         $numberOfPages = ceil($productsNumber/$productsOnPage);
         self::setNumberOfPage($numberOfPages);
         $start = $productsOnPage*($page-1);
-        $products = \Products::find('all', array('conditions' => $productCondition." ".$priceCondition." ".$in_stock_condition, 'limit' => $productsOnPage, 'offset' => $start));
+        $products = \Products::find('all', array('conditions' => $productCondition." ".$priceCondition." ".$inStockCondition, 'limit' => $productsOnPage, 'offset' => $start));
         return $products;
     }
 

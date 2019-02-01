@@ -65,7 +65,7 @@ class AdminController extends Controller
             }
 
             $edit = $this->model->edit($id);
-            //if ($edit) header("Location: /admin/");
+            if ($edit) header("Location: /admin/");
             $data = $this->model->getProduct($id);
             $this->view->generate('products/admin_edit.html', 'template_view.php', $data);
         } else {

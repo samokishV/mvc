@@ -17,7 +17,7 @@ class Cookie
         return null;
     }
 
-    public static function delete($key, $value)
+    public static function delete($key)
     {
         if (isset($_SERVER['HTTP_COOKIE'])) {
             $cookies = explode(';', $_SERVER['HTTP_COOKIE']);

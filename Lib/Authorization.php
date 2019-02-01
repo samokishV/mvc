@@ -66,7 +66,8 @@ class Authorization
         if (self::isAuth()) {
             Session::delete('login');
             Session::delete('email');
-            Cookie::deleteAll();
+            Cookie::delete('login');
+            Cookie::delete('email');
         }
     }
 }

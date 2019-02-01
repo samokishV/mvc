@@ -61,7 +61,7 @@ class Cart
     public function deleteProduct($id)
     {
         $id = (int)$id;
-        $result = Cookie::delete("products[$id]", $this->products[$id]);
+        $result = Cookie::delete("products[$id]");
         $this->products = Cookie::get('products');
         return $result;
     }

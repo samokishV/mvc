@@ -9,7 +9,7 @@
 namespace App\Lib;
 
 use App\Models\User;
-use App\ActiveRecord\Users;
+//use App\ActiveRecord\Users;
 use App\Lib\Session as Session;
 use App\Lib\Validation as Validation;
 
@@ -62,7 +62,7 @@ class Validation
 
     public static function emailNotExists($email)
     {
-        $user = Users::find_by_email($email);
+        $user = \Users::find_by_email($email);
         if (!$user) {
             return true;
         } else {
@@ -72,7 +72,7 @@ class Validation
 
     public static function emailExists($email)
     {
-        $user = Users::find_by_email($email);
+        $user = \Users::find_by_email($email);
         if ($user) {
             return true;
         } else {
