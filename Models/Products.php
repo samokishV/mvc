@@ -83,6 +83,19 @@ class Products
         return $arr;
     }
 
+    public static function getSubtypes($type)
+    {
+        $subtypes = Categories::find('all', array('conditions' => "type LIKE '".$type."'"));
+        return $subtypes;
+    }
+
+    public static function getTypes()
+    {
+        $categories = self::getCategoriesList();
+        $types = array_keys($categories);
+        return $types;
+    }
+
     public function search($keyword)
     {
         $products = \Products::find('all', array('conditions' => "title LIKE '%".$keyword."%' OR 

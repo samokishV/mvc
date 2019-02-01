@@ -19,13 +19,28 @@
       <div class="row">
         <div class="col-sm card m-2" width="20rem;">
           <div class="list-group" style="padding-top:20px;">
-            <a href='/plants/' class="list-group-item list-group-item-action">All plants</a>
-            <a href='/plants/decorative-leafy' class="list-group-item list-group-item-action">Decorative leafy</a>
-            <a href='/plants/krupnomery' class="list-group-item list-group-item-action">Krupnomery</a>
+          <?php $type = App\Lib\Route::getType(); 
+          $subtypes = App\Models\Products::getSubtypes($type); 
+          foreach($subtypes as $subtype) { 
+            $subtype = $subtype->subtype;
+            if($subtype!=null) { ?>
+              <a href="/<?=$type?>/<?=str_replace(' ', '-', $subtype);?>" class="list-group-item list-group-item-action"><?=ucfirst($subtype);?></a>
+            <?php } else { ?> 
+              <a href="/<?=$type?>" class="list-group-item list-group-item-action">All <?=$type?></a>
+            <?php } ?>
+          <?php } ?>
+          <?php if(!$subtypes) {
+            $types = App\Models\Products::getTypes(); 
+            foreach($types as $type) {   ?>
+              <a href="/<?=$type?>" class="list-group-item list-group-item-action"><?=$type?></a> 
+            <?php } ?>
+              </div> 
+          <?php } ?>
           </div>
-          <div class="card-body">
+          <div class="card-body"> 
             <form method="post" action="" id="search">
               <div class="search-options-block">
+               <?php if($subtypes) { ?>
                 <h5 class="card-title">Options</h5>
                 <div class="form-check">
                   <input name="in_stock" value="Yes" <?php if(isset($_POST['in_stock'])) { ?> checked <?php } ?> 
@@ -46,6 +61,7 @@
                   value="<?php if(isset($_POST['price'])) echo $_POST['price']; ?>">
               </div>
               <input type="submit" class="btn btn-success btn-lg w-100" value="Search">
+              <?php } ?>
             </div>
           </form> 
         </div>
